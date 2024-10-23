@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% load configuro_tags %}
+{% site_configs as site_configs %}
+
+{% load home_tags %}
+
+{% block title %}Home{% endblock %}
+{% block og_title %}AutoMagic Developer{% endblock %}
+{% block meta_description %}{% site_configs as site_configs %}{{ site_configs.website_description }}{% endblock %}
+{% block og_image %}{% site_configs as site_configs %}{% if site_configs.featured_image %}{{ site_configs.featured_image.url }}{% endif %}{% endblock %}
+{% block extra_head %}
+
+    <!-- Lottie Player -->
+    {% include "home/includes/inline_js/lottie_player.html" %}
+
+    <!-- Navbar active link -->
+    <style>
+        #home-navbar {
+            color: var(--skin-color);
+        }
+    </style>
+
+{% endblock %}
+
+{% block extra_body %}
+
+{% endblock %}
+
+
+{% block content %}
+
+    {% home_configs as home_configs %}
+
+    <!-- Start Hero Section-->
+    {% include "home/includes/hero_section.html" %}
+    <!-- End Hero Section-->
+
+    {% if skills.count > 0 %}
+        <!-- Start Skills section-->
+        {% include "home/includes/skills_section.html" %}
+        <!-- End Skills section-->
+    {% endif %}
+
+    {% if projects.count > 0 %}
+        <!-- Start Projects Section-->
+        {% include "home/includes/projects_section.html" %}
+        <!-- End Projects Section-->
+    {% endif %}
+
+    {% if posts.count > 0 %}
+        <!-- Start Posts Section-->
+        {% include "home/includes/posts_section.html" %}
+        <!-- End Posts Section-->
+    {% endif %}
+
+<!-- End Page Content -->
+{% endblock %}

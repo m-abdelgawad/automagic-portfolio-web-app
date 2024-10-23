@@ -1,0 +1,111 @@
+{% load static %}
+
+<!-- Start Navigation-->
+<nav class="navbar sticky-top navbar-expand-lg navbar-light py-1">
+    <div class="container site-padding">
+
+        <!-- Logo -->
+        {% if site_configs.logo %}
+            <a class="navbar-brand" href="{% url 'home:home' %}">
+                <img src="{{ site_configs.logo.url }}" width="200px" height="34px" style="max-width: 200px;"/>
+            </a>
+        {% else %}
+            <a class="navbar-brand" href="{% url 'home:home' %}">
+                <img src="{% static "assets/automagic_developer_logo.png" %}" width="200px" height="34px" style="max-width: 200px;"/>
+            </a>
+        {% endif %}
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <!-- Start Navbar Menu Links -->
+            <ul class="navbar-nav mb-lg-0 text-center align-items-center">
+                <li class="nav-item">
+                    <a id="home-navbar" class="nav-link fs-6 fw-bold" href="{% url 'home:home' %}">
+                        Home
+                    </a>
+                </li>
+
+                {% if latest_projects.count > 0 %}
+                    <li class="nav-item">
+                        <a id="portfolio-navbar" class="nav-link fs-6 fw-bold" href="{% url 'portfolio:portfolio_home' %}">
+                            Portfolio
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% if latest_posts.count > 0 %}
+                    <li class="nav-item">
+                        <a id="blog-navbar" class="nav-link fs-6 fw-bold" href="{% url 'blog:blog_home' %}">
+                            Blog
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% if latest_projects.count > 0 %}
+                    <li class="nav-item">
+                        <a id="apps-navbar" class="nav-link fs-6 fw-bold" href="{% url "app_gallery:app_gallery" %}">
+                            App Gallery
+                        </a>
+                    </li>
+                {% endif %}
+
+                <li class="nav-item">
+                    <a id="contact-navbar" class="nav-link fs-6 fw-bold" href="{% url 'contact:contact' %}">
+                        Contact
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a id="resume-navbar" class="nav-link fs-6 fw-bold" href="https://drive.google.com/file/d/1m3m6SBPQOQjlkElHzuRnX1lEdZqnRT21/view?usp=sharing" target="_blank">
+                        Resume
+                    </a>
+                </li>
+
+                <li class="nav-item dropdown me-lg-3">
+                    <a id="apps-navbar" class="nav-link fs-6 fw-bold" id="navbarSearch" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-magnifying-glass"></i></a>
+                    <ul class="dropdown-menu bg-transparent border-0 pt-0 mt-0" aria-labelledby="navbarSearch">
+                            <form class="d-flex fs-6" role="search" method="get" action="{% url 'searchify:post_search' %}">
+                                {% csrf_token %}
+                                <input name="query" style="width: 15rem;" id="id_query" class="form-control me-2 search-box fs-6" type="search" placeholder="Search" aria-label="Search" maxlength="50" required>
+                            </form>
+                    </ul>
+                </li>
+
+            </ul>
+            <!-- End Navbar Menu Links -->
+
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-center align-items-center">
+
+                {% if not user.is_authenticated %}
+                    <!-- Login Button -->
+                    <li class="nav-item">
+                        <a class="btn btn-outline-success navbar-btn btn-sm fs-6 fw-bold" href="{% url 'auth_gates:login' %}">
+                            Login/Register
+                        </a>
+                    </li>
+                    <!-- End Login Button -->
+                {% else %}
+                    <!-- Show Dashboard link if user is Staff -->
+                    {% if request.user.is_staff %}
+                        <li class="nav-item">
+                            <a class="nav-link fs-6 fw-bold" href="{% url 'admin:index' %}" target="_blank">
+                                Dashboard
+                            </a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <form method="POST" action="{% url 'auth_gates:logout' %}">
+                            {% csrf_token %}
+                            <button id="logout-navbar" type="submit" class="btn btn-outline-success navbar-btn btn-sm fs-6 fw-bold">Logout</button>
+                        </form>
+                    </li> <!-- End Logout Button -->
+                {% endif %}
+            </ul>
+
+        </div>
+    </div>
+</nav>
+<!-- End Navigation -->

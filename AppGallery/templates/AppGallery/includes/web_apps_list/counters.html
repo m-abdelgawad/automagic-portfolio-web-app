@@ -1,0 +1,62 @@
+{% load static %}
+
+<!-- Counter section -->
+<section class="py-5" style="background-color: #ECEFF1;">
+    <div class="container site-padding">
+        <div class="row align-items-center">
+            {% for item in counter_items %}
+                <div class="col-lg text-center mb-5 mb-lg-0">
+                    <i class="{{ item.icon }} fs-2 mb-2"></i>
+                    <br>
+                    <span class="fs-4 counter-item">{{ item.count_number }}</span>
+                    <h6 class="fw-normal mb-0 pb-0">{{ item.title }}</h6>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<!-- End Counter Section -->
+
+<script>
+    // Get all elements with the "counter-item" class
+    const counterItems = document.querySelectorAll('.counter-item');
+
+    // Function to animate the counter
+    const animateCounter = () => {
+        // Loop through each counter item
+        counterItems.forEach((counter) => {
+            // Get the target value for the counter
+            const target = +counter.textContent;
+
+            // Start the counter at 0
+            let count = 0;
+
+            // Update the counter value every 50 milliseconds
+            const updateCounter = () => {
+                // Calculate the increment value based on the target value
+                const increment = target / 100;
+
+                // Increment the count value
+                count += increment;
+
+                // Update the counter text
+                counter.textContent = Math.floor(count);
+
+                // Check if the count value has reached the target value
+                if (count < target) {
+                    // Call the updateCounter function again after 50 milliseconds
+                    setTimeout(updateCounter, 10);
+                } else {
+                    // Set the counter text to the target value
+                    counter.textContent = target;
+                }
+            };
+
+            // Call the updateCounter function to start the animation
+            updateCounter();
+        });
+    };
+
+    // Call the animateCounter function when the window finishes loading
+    window.addEventListener('load', animateCounter);
+</script>

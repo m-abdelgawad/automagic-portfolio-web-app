@@ -1,0 +1,243 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static jazzmin %}
+{% load static %}
+
+{% get_jazzmin_ui_tweaks as jazzmin_ui %}
+
+{% block extrahead %}
+    <!-- Import JS scripts -->
+    {% if is_admin_home %}
+        <script>
+
+            // Prepare the data of the users per countries horizontal bar graph
+            var users_country_labels = {{ users_country_labels|safe }}
+            var users_country_data = {{ users_country_data|safe }}
+
+            // Prepare the data of the users per devices pie chart
+            var users_device_labels = {{ users_device_labels|safe }}
+            var users_device_data = {{ users_device_data|safe }}
+
+            // Prepare the data of the users per page title bar graph
+            var users_page_labels = {{ users_page_labels|safe }}
+            var users_page_data = {{ users_page_data|safe }}
+
+            // Prepare the data of the traffic line graph
+            var users_time_labels = {{ users_time_labels|safe }}
+            var users_time_data = {{ users_time_data|safe }}
+            var users_line_chart_data = []
+            for (let i = 0; i < users_time_labels.length; i++) {
+              users_line_chart_data.push(
+                  {x: users_time_labels[i], y: users_time_data[i]}
+              )
+            }
+
+            // Prepare the data of the server utilization multi line graph
+            var util_time_labels = {{ util_timestamps_labels|safe }}
+            var cpu_util_data = {{ cpu_percent_data|safe }}
+            var ram_util_data = {{ ram_percent_data|safe }}
+
+        </script>
+        {% include "insights/includes/inlines/chartjs_js.html" %}
+        {% include "insights/includes/inlines/chartjs_adapter_date_fns_js.html" %}
+        <script src="{% static "cooler_jazzmin/js/cpu_utilization_line_chart.js" %}" defer></script>
+        <script src="{% static "cooler_jazzmin/js/ram_utilization_line_chart.js" %}" defer></script>
+        <script src="{% static "cooler_jazzmin/js/website_traffic_line_chart.js" %}" defer></script>
+        <script src="{% static "cooler_jazzmin/js/users_per_country_bar_chart.js" %}" defer></script>
+        <script src="{% static "cooler_jazzmin/js/users_per_device_pie_chart.js" %}" defer></script>
+        <script src="{% static "cooler_jazzmin/js/users_per_page_horizontal_bar_chart.js" %}" defer></script>
+
+    {% endif %}
+{% endblock %}
+
+
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+
+{% block content_title %} {% trans 'Dashboard' %} {% endblock %}
+
+{% block breadcrumbs %}
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'admin:index' %}">{% trans 'Home' %}</a></li>
+        <li class="breadcrumb-item">{% trans 'Dashboard' %}</li>
+    </ol>
+{% endblock %}
+
+
+{% block content %}
+    {% get_side_menu using="app_list" as dashboard_list %}
+    {% if dashboard_list %}
+        {% widthratio dashboard_list|length 2 1 as middle %}
+    {% endif %}
+
+    <div class="col-lg-9 col-12">
+
+
+    {% if is_admin_home %}
+
+        <!-- Graph Card Row -->
+        <div class="row">
+
+            <!-- Start Chart Card: Website Traffic -->
+            {% include "cooler_jazzmin/graph_card.html" with col_width="12" min_height="400px" max_height="auto" card_title="Website Traffic" canvas_id="websiteTrafficLineChart" %}
+            <!-- End Chart Card -->
+
+            <!-- Start Chart Card: Traffic per Page Title -->
+            {% include "cooler_jazzmin/graph_card.html" with col_width="7" min_height="400px" max_height="auto" card_title="Traffic Per Page (The Top Twenty)" canvas_id="usersperpagechart" %}
+            <!-- End Chart Card -->
+
+            <!-- Start Chart Card: Traffic per Device -->
+            {% include "cooler_jazzmin/graph_card.html" with col_width="5" min_height="200px" max_height="auto" card_title="Traffic Per Device" canvas_id="usersperdevicechart" %}
+            <!-- End Chart Card -->
+
+            <!-- Start Chart Card: Traffic per Country -->
+            {% include "cooler_jazzmin/graph_card.html" with col_width="12" min_height="400px" max_height="auto" card_title="Traffic Per Country (The Top Ten)" canvas_id="userspercountrychart" %}
+            <!-- End Chart Card -->
+
+            <!-- Start Chart Card: Server Utilization -->
+            {% include "cooler_jazzmin/graph_card.html" with col_width="6" min_height="419px" max_height="auto" card_title="CPU Utilization" canvas_id="cpuutilizationchart" %}
+            {% include "cooler_jazzmin/graph_card.html" with col_width="6" min_height="419px" max_height="auto" card_title="RAM Utilization" canvas_id="ramutilizationchart" %}
+            <!-- End Chart Card -->
+
+        </div>  <!-- End Graph Card Row -->
+    {% endif %}
+
+    {% if not is_admin_home %}
+
+        <div class="row">
+
+            {% for app in dashboard_list %}
+                <div class="col-md-6 col-sm-12 mb-4">
+                    <!-- Start Card -->
+                    <div class="card h-100">
+                        <div class="card-header">
+                            <h6 class="m-0">{{ app.name }}</h6>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-sm">
+                                <tbody>
+                                {% for model in app.models %}
+                                    <tr>
+                                        <td>
+                                            {% if model.url %}<a href="{{ model.url }}">{{ model.name }}</a>{% else %}{{ model.name }}{% endif %}
+                                        </td>
+                                        <td>
+                                            <div class="btn-group float-right">
+                                                {% if model.add_url %}
+                                                    <a href="{{ model.add_url }}" class="btn btn-xs {{ jazzmin_ui.button_classes.success }} addlink">{% trans 'Add' %}</a>
+                                                {% endif %}
+                                                {% if model.url %}
+                                                    {% if model.view_only %}
+                                                        <a href="{{ model.url }}" class="btn btn-xs {{ jazzmin_ui.button_classes.info }} viewlink">{% trans 'View' %}</a>
+                                                    {% else %}
+                                                        <a href="{{ model.url }}" class="btn btn-xs {{ jazzmin_ui.button_classes.info }} changelink">{% if model.custom %}{% trans 'Go' %}{% else %}{% trans 'Change' %}{% endif %}</a>
+                                                    {% endif %}
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- End Card -->
+                </div>
+            {% endfor %}
+        </div>  <!--- End Row -->
+
+    {% endif %}
+
+    </div>
+    <div class="col-lg-3 col-12">
+        <div id="content-related">
+
+            {% if is_admin_home %}
+
+            <h5 class="mb-3 text-muted">Traffic</h5>
+
+            {% if total_users %}
+                <!-- Start statistics Card: Total Users -->
+                {% include "cooler_jazzmin/stats_card_with_footer.html" with col_width="12" card_title="Total Users" card_stats=total_users card_icon="fas fa-user" card_footer="From <span class=\"font-weight-bold\">"|add:start_date|add:"</span> To <span class=\"font-weight-bold\">"|add:end_date|add:"</span>" %}
+                <!-- End statistics Card -->
+            {% endif %}
+
+            {% if balance %}
+
+            <h5 class="mb-3 text-muted">Billing</h5>
+
+            <!-- Start statistics Card: Month to Date Usage -->
+            {% include "cooler_jazzmin/stats_card_without_footer.html" with col_width="12" card_title="Month to Date Usage" card_stats="$"|add:balance.month_to_date_usage card_icon="fas fa-search-dollar" %}
+            <!-- End statistics Card -->
+
+            <!-- Start statistics Card: Month To Date Balance -->
+            {% include "cooler_jazzmin/stats_card_without_footer.html" with col_width="12" card_title="Month To Date Balance" card_stats="$"|add:balance.month_to_date_balance card_icon="fas fa-money-bill-wave" %}
+            <!-- End statistics Card -->
+
+            <!-- Start statistics Card: Account Balance -->
+            {% include "cooler_jazzmin/stats_card_without_footer.html" with col_width="12" card_title="Account Balance" card_stats="$"|add:balance.account_balance card_icon="fas fa-wallet" %}
+            <!-- End statistics Card -->
+	    {% if balance %}
+	    <!-- Start statistics Card: Last Payment Amount -->
+	      {% include "cooler_jazzmin/stats_card_without_footer.html" with col_width="12" card_title="Account Balance" card_stats="$"|add:balance.account_balance card_icon="fas fa-wallet" %}
+            {% endif %}
+	    <!-- Start statistics Card: Last Invoice Amount -->
+            {% include "cooler_jazzmin/stats_card_with_footer.html" with col_width="12" card_title="Last Invoice" card_stats="$"|add:last_invoice.amount card_icon="fas fa-file-invoice-dollar" card_footer=last_invoice.invoice_period %}
+            <!-- End statistics Card -->
+
+            <!-- Start statistics Card: Last Payment Amount -->
+	    {% if last_payment %}
+              {% include "cooler_jazzmin/stats_card_with_footer.html" with col_width="12" card_title="Last Payment" card_stats="$"|add:last_payment.amount card_icon="far fa-credit-card" card_footer=last_payment.date %}
+	    {% endif %}
+	    <!-- End statistics Card -->
+            {% endif %}
+            <h5 class="mb-3 text-muted">Server Utilization</h5>
+
+            <!-- Start statistics Card: Max CPU -->
+            {% include "cooler_jazzmin/stats_card_with_footer.html" with col_width="12" card_title="Average CPU" card_stats=avg_cpu|add:"%" card_icon="fas fa-microchip" card_footer="Max: "|add:max_cpu|add:"% in "|add:max_cpu_time %}
+            <!-- End statistics Card -->
+
+            <!-- Start statistics Card: Max RAM -->
+            {% include "cooler_jazzmin/stats_card_with_footer.html" with col_width="12" card_title="Average RAM" card_stats=avg_ram|add:"%" card_icon="fas fa-memory" card_footer="Max: "|add:max_ram|add:"% in "|add:max_ram_time %}
+            <!-- End statistics Card -->
+
+            <!-- Start statistics Card: Storage Disk Usage -->
+            {% include "cooler_jazzmin/stats_card_with_footer.html" with col_width="12" card_title="Storage Utilization" card_stats=storage_percentage|add:"%" card_icon="fas fa-memory" card_footer="Used: "|add:used_storage_gb|add:" GB" %}
+            <!-- End statistics Card -->
+
+            <!-- Start statistics Card: Remaining Storage -->
+            {% include "cooler_jazzmin/stats_card_without_footer.html" with col_width="12" card_title="Remaining Storage" card_stats=free_storage_gb|add:" GB" card_icon="fas fa-memory" %}
+            <!-- End statistics Card -->
+
+
+            {% if droplet_specs %}
+
+            <h5 class="mb-3 text-muted">Server Specs</h5>
+
+            <!-- Start statistics Card: Monthly Price -->
+            {% include "cooler_jazzmin/stats_card_without_footer.html" with col_width="12" card_title="Monthly Price" card_stats="$"|add:droplet_specs.price_monthly card_icon="fas fa-money-check-alt" %}
+            <!-- End statistics Card -->
+
+            <!-- Start statistics Card: Virtual Processors -->
+            {% include "cooler_jazzmin/stats_card_without_footer.html" with col_width="12" card_title="Virtual Processors (vCPUs)" card_stats=droplet_specs.vcpus card_icon="fas fa-microchip" %}
+            <!-- End statistics Card -->
+
+            <!-- Start statistics Card: RAM Memory -->
+            {% include "cooler_jazzmin/stats_card_without_footer.html" with col_width="12" card_title="RAM Memory" card_stats=droplet_specs.memory|add:" GB" card_icon="fas fa-memory" %}
+            <!-- End statistics Card -->
+
+            <!-- Start statistics Card: Storage Disk -->
+            {% include "cooler_jazzmin/stats_card_without_footer.html" with col_width="12" card_title="Storage Disk" card_stats=droplet_specs.disk|add:" GB" card_icon="fas fa-hdd" %}
+            <!-- End statistics Card -->
+            
+            {% endif %}
+
+        {% endif %}
+
+
+        </div>  <!-- End content-related -->
+    </div>  <!-- End col-12 -->
+
+{% endblock %}
+
+{% block extrajs %}
+
+{% endblock %}

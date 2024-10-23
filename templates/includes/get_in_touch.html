@@ -1,0 +1,23 @@
+{% load static %}
+{% load home_tags %}
+{% home_configs as home_configs %}
+
+<!-- Start call to action section -->
+<section class="py-5" style="background-color: #FE5C29;">
+    <div class="container site-padding">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="section title text-white my-0 d-inline">{{ home_configs.contact_section_title }}</h1>
+                <p class="fw-normal text-white mb-4 d-inline small">{{ home_configs.contact_section_paragraph }}</p>
+            </div>
+            <div class="col-lg-4 mt-3 mt-lg-0 text-center">
+                <a href="{% url "contact:contact" %}">
+                    <button type="button" class="btn btn-success btn-lg px-4 outline-btn text-white border-white">
+                        {{ home_configs.contact_button_text }} <i class="{{ home_configs.contact_button_icon }}"></i>
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End call to action section -->

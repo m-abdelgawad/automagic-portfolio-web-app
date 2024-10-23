@@ -1,0 +1,203 @@
+{% extends "page_template.html" %}
+{% load static %}
+
+{% block title %}{{ project.title }}{% endblock %}
+{% block og_title %}{{ project.title }}{% endblock %}
+{% block meta_description %}{{ project.body|striptags|truncatechars:100 }}{% endblock %}
+
+{% block extra_head %}
+
+    <!-- Import Lottie Player -->
+    <script src="{% static "animation/lottie-player.js" %}"></script>
+
+    <!-- Import highlight.js -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- Navbar active link -->
+    <style>
+        #portfolio-navbar {
+            color: var(--skin-color);
+        }
+    </style>
+{% endblock %}
+
+{% block header_bg_image %}
+    {% static "assets/businessman-working-laptop.jpg" %}
+{% endblock %}
+
+{% block header_bg_image_opacity %}75{% endblock %}
+
+{% block header_title %}{{ project.title }}{% endblock %}
+
+{% block header_subtitle %}
+
+    {% if project.skills.all %}
+        <!-- Post Tags -->
+        <p class="mb-0 mt-0 fs-6 text-white">
+            {% for tag in project.skills.all %}
+                <a href="{% url "portfolio:portfolio_home_by_tag" tag.slug %}">
+                    <span class="badge rounded-pill bg-secondary text-white" style="font-size: 0.75rem;">#{{ tag.name }}</span>
+                </a>
+                {% comment %} {% if not forloop.last %}, {% endif %} {% endcomment %}
+            {% endfor %}
+        </p>
+    {% endif %}
+
+{% endblock %}
+
+{% block breadcrumbs %}
+    <li class="breadcrumb-item">
+        <a class="link-body-emphasis fw-semibold text-decoration-none" href="{% url 'portfolio:portfolio_home' %}">Portfolio</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+        {{ project.title }}
+    </li>
+{% endblock %}
+
+{% block page_content %}
+
+<!-- Project Content-->
+    <section class="pt-5 project-content">
+
+        <div class="container site-padding my-5">
+
+            <div class="row gx-5">
+
+                <!-- Project Description Section -->
+                <div class="col-lg-8">
+                    <article style="margin-top: -11px;">
+                        <section class="mb-5">
+
+                            <!-- Project Description Title -->
+{#                            <h2 class="underline-title">Project Details</h2>#}
+
+                            <!-- Project Description Paragraph -->
+                            <p class="mb-4">
+                                {{ project.body|safe }}
+                            </p>
+
+                            <div class="mt-4">
+                                <a target="_blank" href="{{ project.project_url }}">View on Github <i class="fa-solid fa-up-right-from-square"></i></i></a>
+                            </div>
+
+                        </section>
+                    </article>
+
+                </div> <!-- End Project Description Section -->
+
+                <!-- Project Info Box -->
+                <div class="col-lg-4">
+                    <div class="align-items-center mb-4 portfolio-meta">
+                        <ul>
+
+                            <!-- Author -->
+                            <li>
+                                <div class="field-title">
+                                    <i class="bi bi-person-fill"></i>
+                                    <span>Developer:</span>
+                                </div>
+                                <div class="field-value ps-1">
+                                    {{ project.developer }}
+                                </div>
+                            </li> <!-- end author -->
+
+                            <!-- Completion Date -->
+                            <li>
+                                <div class="field-title">
+                                    <i class="bi bi-calendar-check-fill"></i>
+                                    <span>Date:</span>
+                                </div>
+                                <div class="field-value ps-1">
+                                    {{ project.complete_date }}
+                                </div>
+                            </li> <!-- end Completion Date -->
+
+                            <!-- Skills -->
+                            {% if project.skills.all %}
+                            <li>
+                                <div class="field-title">
+                                    <i class="bi bi-cup-hot-fill"></i>
+                                    <span>Skills:</span>
+                                </div>
+                                <div class="field-value ps-1">
+                                    {% for tag in project.skills.all %}
+                                        <a class="small" href="{% url "portfolio:portfolio_home_by_tag" tag.slug %}">
+                                            <span class="badge rounded-pill bg-secondary text-white" style="font-size: 0.75rem;">#{{ tag.name }}</span>
+                                        </a>
+                                        {% comment %} {% if not forloop.last %}, {% endif %} {% endcomment %}
+                                    {% endfor %}
+                                </div>
+                            </li> <!-- End Skills -->
+                            {% endif %}
+
+                            {% if project.category %}
+                                <!-- Category -->
+                                <li class="last-meta">
+                                    <div class="field-title">
+                                        <i class="bi bi-bookmark-star-fill"></i>
+                                        <span>Category:</span>
+                                    </div>
+                                    <div class="field-value ps-1">
+                                        <a href="{% url "portfolio:portfolio_home_by_category" project.category.slug %}">
+                                            <span class="badge rounded-pill text-bg-dark" style="font-size: 0.75rem; background-color: var(--skin-color) !important;">#{{ project.category.title }}</span>
+                                        </a>
+                                    </div>
+                                </li> <!-- End Category -->
+                            {% endif %}
+
+                            <!-- Github -->
+                            <li class="last-meta">
+
+                                <div class="field-value ps-1 d-grid gap-2">
+                                    <a target="_blank" href="{{ project.project_url }}">
+                                        <button type="button" class="btn btn-primary outline-btn py-3">
+                                            View on Github <i class="fa-brands fa-github"></i>
+                                        </button>
+                                    </a>
+                                </div>
+                            </li> <!-- End Category -->
+
+                        </ul>
+                    </div>
+                </div> <!-- End Project Info Box -->
+
+            </div>
+
+        </div> <!-- End Container -->
+
+    </section> <!-- End Project Content -->
+
+    {% if similar_projects %}
+
+        <!-- Start Similar Posts section -->
+        <section>
+            <!-- Container -->
+            <div class="container px-5 my-4">
+
+                <!-- Start Section Title -->
+                <div class="row gx-5 justify-content-center">
+                    <div class="col-lg-8 col-xl-6 my-4">
+                        <div class="text-center my-4">
+
+                            <!-- Section Title -->
+                            <h6 class="section-title mb-5">Similar Projects</h6>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- End Section Title -->
+
+                {% include "portfolio/includes/projects.html" with projects=similar_projects %}
+
+            </div>
+        </section>
+        <!-- End Similar Posts section -->
+
+    {% endif %}
+
+{% endblock %}}
+
+{% block extra_body %}
+{% endblock %}

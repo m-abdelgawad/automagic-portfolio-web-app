@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Page Not Found{% endblock %}
+
+{% block extra_head %}
+    <!-- Lottie Player -->
+    {% include "home/includes/inline_js/lottie_player.html" %}
+    <style>
+        body.d-flex.flex-column.h-100 {
+            height: 100vh !important;
+        }
+        .error-page {
+            padding-top: 7%;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="error-page mb-5">
+        <div class="container site-padding">
+            <div class="row gx-5 align-items-center">
+
+                <!-- Start Header Content Column-->
+                <div class="col-lg-6">
+
+                    <div class="my-5 text-center text-xl-start">
+
+                        <!-- Error Code -->
+                        <h1 class="error-title display-6 mb-1">Have You Seen My Cat?</h1>
+                        <!-- Error Code -->
+                        <p class="fs-6 fw-light mb-2 text-muted">Error Code: 400</p>
+
+                        <!-- Paragraph -->
+                        <p class="lead fw-normal mb-4 pt-3">
+                            That's weird! We couldn't find the page you're looking for on this server. Someone messed with the server cables again!
+                        </p>
+
+                        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
+
+                            <!-- Outline Button -->
+                            <a href="{% url 'home:home' %}">
+                                <button type="button" class="btn btn-success btn-lg px-3 outline-btn">
+                                    Take Me Home <i class="bi bi-house"></i>
+                                </button>
+                            </a>
+
+                        </div>
+
+                    </div>
+                </div> <!-- End header content Column-->
+
+                <!-- Header Animation -->
+                <div class="col-lg-6">
+
+                    <div class="my-3 align-items-center">
+
+                        <lottie-player src="{% static "friendly_errors/server-404-error.json" %}"  background="transparent"  speed="1"  style="width: 100%; height: 100%; margin-top: -3rem;"  loop  autoplay></lottie-player>
+
+                    </div>
+
+                </div>
+
+            </div> <!-- End Row -->
+        </div> <!-- End Container -->
+    </div>
+{% endblock %}}
+
+{% block extra_body %}
+{% endblock %}

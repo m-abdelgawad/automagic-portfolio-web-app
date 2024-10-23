@@ -1,0 +1,22 @@
+<div class="col-lg-{{ col_width }}">
+
+    <div class="card mb-4">
+
+        <!-- Card Header -->
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between graph-card-header">
+            <h6 class="m-0">
+                {{ card_title }}
+            </h6>
+        </div>
+
+        <!-- Card Body -->
+        <div class="card-body">
+            <div class="chart-area">
+
+                <canvas id="{{ canvas_id }}" style="max-height: {{ chart_height }} !important; min-height: {{ min_height }}"></canvas>
+
+            </div>
+        </div>
+
+    </div>  <!-- End Card -->
+</div>  <!-- End column -->

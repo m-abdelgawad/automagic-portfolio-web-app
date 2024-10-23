@@ -1,0 +1,46 @@
+{% load static %}
+{% load blog_tags %}
+{% author_box as configs %}
+
+{% if configs and configs.author_name %}
+
+    <!-- Start Author Box section -->
+    <div class="author-box px-5 py-4 border border-secondary-subtle">
+        <div class="row">
+            <div class="col">
+                <div class="text-center  mb-3 text-muted">{{ configs.box_title }}</div>
+            </div>
+        </div>
+        <div class="row">
+            {% if configs.author_photo %}
+            <div class="col-sm-3">
+                    <img class="rounded mb-4 bnw-picture" id="stefets-picture" src="{{ configs.author_photo.url }}" alt="Author Avatar">
+            </div>
+            {% endif %}
+            <div class="col-sm-9">
+                <h5 class="mb-0 author-name">{{ configs.author_name }}</h5>
+                <p class="mb-0">{{ configs.author_job_title }}</p>
+                <div class="box-social mb-1 mt-1">
+                    {% if configs.social_1_icon %}
+                        <a class="pe-2 text-secondary" href="{{ configs.social_1_url }}" target="_blank" role="button">
+                            <i class="{{ configs.social_1_icon }} author-box-social-icon" style="color: {{ configs.social_1_icon_color }};"></i>
+                        </a>
+                    {% endif %}
+                    {% if configs.social_2_icon %}
+                        <a class="pe-2 text-secondary" href="{{ configs.social_2_url }}" target="_blank" role="button">
+                            <i class="{{ configs.social_2_icon }} author-box-social-icon" style="color: {{ configs.social_2_icon_color }};"></i>
+                        </a>
+                    {% endif %}
+                    {% if configs.social_3_icon %}
+                        <a class="pe-2 text-secondary" href="{{ configs.social_3_url }}" target="_blank" role="button">
+                            <i class="{{ configs.social_3_icon }} author-box-social-icon" style="color: {{ configs.social_3_icon_color }};"></i>
+                        </a>
+                    {% endif %}
+                </div>
+                <p class="small">{{ configs.about_author }}</p>
+            </div>
+        </div>
+    </div>
+    <!-- End Author Box section -->
+
+{% endif %}

@@ -1,0 +1,16 @@
+<!-- Start Chart Card -->
+<div class="col-lg-{{ col_width }} mb-5">
+    <div class="card mb-4">
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0" style="font-weight: normal;">{{ card_title }}</h6>
+        </div>
+        <!-- Card Body -->
+        <div class="card-body">
+            <div class="chart-area">
+                <canvas id="{{ canvas_id }}" style="max-height: {{ max_height }} !important; min-height: {{ min_height }}"></canvas>
+            </div>
+        </div>
+    </div>
+</div> <!-- End column -->
+<!-- End Chart Card -->

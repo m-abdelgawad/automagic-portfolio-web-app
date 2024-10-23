@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <!-- Start Section Title -->
+    <section class="bg-dark image-bg py-5" style="background-image: url({% block header_bg_image %}{% endblock %}); box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.{% block header_bg_image_opacity %}{% endblock %});">
+        <div class="container px-4 px-lg-5 my-5 site-padding">
+            <div class="row justify-content-center text-center text-white">
+                <div class="col-lg-8">
+                    <h1 class="display-6 fw-bolder text-white">{% block header_title %}{% endblock %}</h1>
+                    <p class="lead fw-normal text-white-50 mb-0">{% block header_subtitle %}{% endblock %}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Section Title -->
+
+    <section class="mw-100 border-bottom bg-light">
+        <div class="container site-padding">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb breadcrumb-chevron pt-3 bg-body-tertiary rounded-3">
+                <li class="breadcrumb-item">
+                    <a class="link-body-emphasis" href="{% url 'home:home' %}">
+                        <i class="fas fa-home"></i>
+                        <span class="visually-hidden">Home</span>
+                    </a>
+                </li>
+
+                {% block breadcrumbs %}{% endblock %}
+
+                </ol>
+            </nav>
+        </div>
+    </section>
+
+    {% block page_content %}{% endblock %}
+
+{% endblock %}

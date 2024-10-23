@@ -1,0 +1,20 @@
+<!-- Total Projects Count -->
+<div class="col-lg-{{ col_width }} mb-5">
+    <div class="card h-100 py-2" style="border-left: 0.25rem solid {{ box_left_border_color }}">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col mr-2 text-center">
+                    <div class="text-xs font-weight-bold mb-1 box-title">
+                        {{ box_title }}
+                    </div>
+                    <div class="h5 mb-0 font-weight-bold stats-box-count">
+                        {{ box_stats|safe }}
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <i class="{{ box_icon }} fa-2x stats-box-icon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- End column -->

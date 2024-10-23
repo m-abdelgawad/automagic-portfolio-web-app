@@ -1,0 +1,39 @@
+{% load static %}
+
+<!-- Start apps showcases -->
+<style>
+    .showcase .showcase-text {
+      padding: 3rem;
+    }
+    .showcase .showcase-img {
+      min-height: 30rem;
+      background-size: cover;
+    }
+    @media (min-width: 768px) {
+      .showcase .showcase-text {
+        padding: 7rem;
+      }
+    }
+</style>
+<section class="showcase">
+    <div class="container-fluid p-0">
+
+        {% for item in apps_items %}
+                <!-- Start app -->
+                <div class="row g-0">
+                    <div class="col-lg-6 {% if forloop.counter0|divisibleby:2 %}order-lg-2{% endif %} text-white showcase-img"
+                         style="background-image: url('{% if item.image %}{{ item.image.url }}{% endif %}')"></div>
+                    <div class="col-lg-6 {% if forloop.counter0|divisibleby:2 %}order-lg-1{% endif %} my-auto showcase-text">
+                        <h2>{{ item.title }}</h2>
+                        <p class="lead mb-0">{{ item.long_description }}</p>
+                        <a target="_blank" href="{{ item.button_url }}">
+                            <button class="btn px-3 outline-btn fw-bold mt-4" type="button">{{ item.button_text }} <i class="{{ item.button_icon }}"></i></button>
+                        </a>
+                    </div>
+                </div>
+                <!-- End app -->
+        {% endfor %}
+
+    </div>
+</section>
+<!-- End apps showcases -->

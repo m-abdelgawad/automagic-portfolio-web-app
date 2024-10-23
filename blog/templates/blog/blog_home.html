@@ -1,0 +1,76 @@
+{% extends "page_template.html" %}
+{% load static %}
+{% load blog_tags %}  <!-- Register the total_posts tag inside the blog_tags module -->
+
+{% block title %}Blog{% endblock %}
+{% block og_title %}Blog{% endblock %}
+{% block meta_description %}Latest posts in AutoMagic Developer{% endblock %}
+{% block og_image %}{% static "assets/automagic-developer.jpg" %}{% endblock %}
+
+{% block extra_head %}
+
+    <!-- Navbar active link -->
+    <style>
+        #blog-navbar {
+            color: var(--skin-color);
+        }
+    </style>
+
+{% endblock %}
+
+{% block header_bg_image %}
+    {% static "assets/modern-dark-wooden-office.jpg" %}
+{% endblock %}
+
+{% block header_bg_image_opacity %}50{% endblock %}
+
+{% block header_title %}
+    {% if tag %}
+        Posts Tagged With "{{ tag }}"
+    {% else %}
+        Latest Posts
+    {% endif %}
+{% endblock %}
+
+{% block header_subtitle %}
+    <p class="mb-0 mt-0 fs-6 text-white">
+        ({{ posts_count }} Post{{ posts_count|pluralize:"s" }})
+    </p>
+{% endblock %}
+
+{% block breadcrumbs %}
+    {% if tag %}
+        <li class="breadcrumb-item">
+            <a class="link-body-emphasis fw-semibold text-decoration-none" href="{% url 'blog:blog_home' %}">Blog</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+            Posts Tagged With "{{ tag }}"
+        </li>
+    {% else %}
+        <li class="breadcrumb-item active" aria-current="page">
+            Blog
+        </li>
+    {% endif %}
+
+{% endblock %}
+
+{% block page_content %}
+
+    <!-- Start Blog Section-->
+    <section class="py-5 projects">
+
+        <section class="container site-padding my-5">
+
+            <!-- Posts list -->
+            {% include "blog/includes/posts.html" with posts=posts %}
+
+            <!-- pages pagination -->
+            {% include "includes/pagination.html" with page=posts %}
+
+        </section> <!-- End Container -->
+    </section>
+    <!-- End Blog Section-->
+{% endblock %}
+
+{% block extra_body %}
+{% endblock %}

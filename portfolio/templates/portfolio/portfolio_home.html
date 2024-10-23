@@ -1,0 +1,81 @@
+{% extends "page_template.html" %}
+{% load static %}
+{% load portfolio_tags %}  <!-- Register the total_projects tag inside the portfolio_tags module -->
+
+{% block title %}Portfolio{% endblock %}
+{% block og_title %}Portfolio{% endblock %}
+{% block meta_description %}Latest Projects{% endblock %}
+{% block og_image %}{% static "assets/automagic-developer.jpg" %}{% endblock %}
+
+{% block extra_head %}
+
+    <!-- Navbar active link -->
+    <style>
+        #portfolio-navbar {
+            color: var(--skin-color);
+        }
+    </style>
+
+{% endblock %}
+
+{% block header_bg_image %}
+    {% static "assets/businessman-working-laptop.jpg" %}
+{% endblock %}
+
+{% block header_bg_image_opacity %}75{% endblock %}
+
+{% block header_title %}
+    {% if category %}
+        "{{ category.title }}" Projects
+    {% elif tag %}
+        "{{ tag.name }}" Projects
+    {% else %}
+        Latest Projects
+    {% endif %}
+{% endblock %}
+
+{% block header_subtitle %}
+    <p class="mb-0 mt-0 fs-6 text-white">
+        ({{ projects_count }} Project{{ projects_count|pluralize:"s" }})
+    </p>
+{% endblock %}
+
+{% block breadcrumbs %}
+    {% if category or tag %}
+        <li class="breadcrumb-item">
+            <a class="link-body-emphasis fw-semibold text-decoration-none" href="{% url 'portfolio:portfolio_home' %}">Portfolio</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+            {% if category %}
+                "{{ category.title }}" Projects
+            {% elif tag %}
+                "{{ tag.name }}" Projects
+            {% endif %}
+        </li>
+    {% else %}
+        <li class="breadcrumb-item">
+            Portfolio
+        </li>
+    {% endif %}
+{% endblock %}
+
+{% block page_content %}
+
+<!-- Start Projects Section-->
+    <section class="py-5 projects">
+
+        <section class="container site-padding my-5">
+
+            <!-- Projects list -->
+            {% include "portfolio/includes/projects.html" with projects=projects %}
+
+            <!-- pages pagination -->
+            {% include "includes/pagination.html" with page=projects %}
+
+        </section> <!-- End Container -->
+    </section>
+    <!-- End Projects Section-->
+{% endblock %}
+
+{% block extra_body %}
+{% endblock %}

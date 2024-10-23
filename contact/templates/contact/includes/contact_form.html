@@ -1,0 +1,56 @@
+{% if sent %}
+    <!-- Submit success message-->
+    <div class="alert alert-success" role="alert">
+        Thank you, your message was sent successfully!
+    </div>
+{% else %}
+
+    <form method="post">
+
+        {% csrf_token %}
+
+        {% if form.errors %}
+            <div class="alert alert-danger">
+                {{ form.errors }}
+            </div>
+        {% endif %}
+
+        <!-- Name input-->
+        <div class="form-floating mb-3">
+            {{ form.name }}
+            <label for="name">Full name</label>
+            <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
+        </div>
+
+        <!-- Email address input-->
+        <div class="form-floating mb-3">
+            {{ form.email }}
+            <label for="email">Email address</label>
+            <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
+        </div>
+
+        <!-- Phone number input-->
+        <div class="form-floating mb-3" style="display: flex;">
+            {{ form.phone }}
+            <label for="phone">Phone number</label>
+            <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
+        </div>
+
+        <!-- Message input-->
+        <div class="form-floating mb-3">
+            {{ form.message }}
+            <label for="message">Message</label>
+            <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div>
+        </div>
+
+
+        <!-- Captcha -->
+        <div id="recaptcha" class="form-floating mb-3">
+            {{ form.captcha }}
+        </div>
+
+        <!-- Submit Button-->
+        <div class="d-grid"><button class="btn btn-success outline-btn py-3" type="submit">Submit</button></div>
+
+    </form>
+{% endif %}

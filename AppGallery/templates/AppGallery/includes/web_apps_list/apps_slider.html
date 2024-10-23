@@ -1,0 +1,75 @@
+{% load static %}
+
+<style>
+    #carouselExampleCaptions, #carouselExampleCaptions .carousel-inner .carousel-item img {
+      max-height: 600px !important;
+      min-height: 500px !important;
+    }
+
+    #carouselExampleCaptions .carousel-inner .carousel-item img {
+      width: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .carousel-caption {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 15%;
+        bottom: initial;
+        left: 15%;
+        padding-top: 1.25rem;
+        padding-bottom: 1.25rem;
+        color: #fff;
+        text-align: center;
+      }
+
+  </style>
+
+<!-- Start slider -->
+<div class="carousel slide carousel-fade" data-bs-interval="3000" data-bs-pause="hover" data-bs-ride="carousel"
+     data-bs-touch="true" data-bs-wrap="true" id="carouselExampleCaptions">
+    <div class="carousel-indicators">
+        {% for item in apps_items %}
+            <button aria-label="Slide {{ forloop.counter0 }}" data-bs-slide-to="{{ forloop.counter0 }}" data-bs-target="#carouselExampleCaptions"
+                    type="button" {% if forloop.counter0 == 0 %}aria-current="true" class="active"{% endif %}></button>
+        {% endfor %}
+    </div>
+    <div class="carousel-inner">
+
+        {% for item in apps_items %}
+            <!-- Start Slide -->
+            <div class="carousel-item {% if forloop.counter0 == 0 %}active{% endif %}">
+                {% if item.image %}
+                    <img src="{{ item.image.url }}" class="d-block w-100" alt="..." style="filter: brightness(20%);">
+                {% endif %}
+                <div class="carousel-caption d-sm-block">
+                    <h1 class="text-white fw-bold display-1 mb-3">{{ item.title }}</h1>
+                    <div class="col-lg-9 m-auto">
+                        <p class="text-white mb-5 px-3 py-1 fs-5 fw-bold" style="width: fit-content;margin: auto;">
+                            {{ item.short_description }}
+                        </p>
+                    </div>
+                    <a href="{{ item.button_url }}" target="_blank">
+                        <button class="btn btn-success btn-lg px-4 outline-btn text-white border-white fw-bold mb-5"
+                                type="button">
+                            {{ item.button_text }} <i class="{{ item.button_icon }}"></i>
+                        </button>
+                    </a>
+                </div>
+            </div>
+            <!-- End Slide -->
+        {% endfor %}
+
+    </div>
+    <button class="carousel-control-prev" data-bs-slide="prev" data-bs-target="#carouselExampleCaptions" type="button">
+        <span aria-hidden="true" class="carousel-control-prev-icon"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" data-bs-slide="next" data-bs-target="#carouselExampleCaptions" type="button">
+        <span aria-hidden="true" class="carousel-control-next-icon"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+<!-- End slider -->

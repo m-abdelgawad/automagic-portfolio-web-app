@@ -1,0 +1,50 @@
+<section class="py-3 skills">
+    <div class="container site-padding my-5 text-center">
+
+        <!-- Start Section Title -->
+        <div class="row gx-5 justify-content-center">
+            <div class="col-lg-8 col-xl-6 mb-5">
+                <div class="text-center mb-5">
+
+                    <!-- Skill Section Title -->
+                    <h2 class="section-title">{{ home_configs.skills_section_title }}</h2>
+
+                </div>
+            </div>
+        </div>
+        <!-- End Section Title -->
+
+        <!-- Start Skills List -->
+        <div class="row gx-5">
+            <div class="col-lg-12">
+                <div class="row gx-5 row-cols-1 row-cols-md-3">
+
+                    {% for skill in skills %}
+
+                        <!-- Start Skill -->
+                        <div class="col mb-5 h-100">
+
+                            <!-- Skill Icon -->
+                            <div class="feature skill-icon text-white rounded-circle mb-4">
+                                <i class="{{ skill.icon }}"></i>
+                            </div>
+
+                            <!-- Skill Title -->
+                            <h4 class="skill-title mb-4">{{ skill.title }}</h4>
+
+                            <!-- Skill Description -->
+                            <p class="mb-0">
+                                {{ skill.description }}
+                            </p>
+
+                        </div> <!-- End Skill -->
+
+                    {% endfor %}
+
+                </div> <!-- End Row -->
+            </div> <!-- End Column -->
+        </div> <!-- End Row -->
+        <!-- End Skills List -->
+
+    </div> <!-- End Container -->
+</section>

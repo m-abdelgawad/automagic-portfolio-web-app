@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Apps{% endblock %}
+{% block og_title %}Apps{% endblock %}
+{% block meta_description %}Applications developed by Mohamed AbdelGawad{% endblock %}
+{% block og_image %}{% static "assets/automagic-developer.jpg" %}{% endblock %}
+
+{% block header_bg_image %}
+    {% static "assets/modern-dark-wooden-office.jpg" %}
+{% endblock %}
+
+{% block header_bg_image_opacity %}50{% endblock %}
+
+{% block header_title %}
+    Web Applications
+{% endblock %}
+
+{% block header_subtitle %}
+    <p class="mb-0 mt-0 fs-6 text-white">
+        Recent applications that I have developed
+    </p>
+{% endblock %}
+
+{% block breadcrumbs %}
+    <li aria-current="page" class="breadcrumb-item active">
+        Apps
+    </li>
+{% endblock %}
+
+{% block extra_head %}
+    <!-- Navbar active link -->
+    <style>
+            #apps-navbar {
+                color: var(--skin-color);
+            }
+
+    </style>
+{% endblock %}
+
+{% block extra_body %}
+
+{% endblock %}
+
+{% block content %}
+
+    <!-- Slider section -->
+    {% include "AppGallery/includes/web_apps_list/apps_slider.html" %}
+
+    <!-- Counters section -->
+    {% include "AppGallery/includes/web_apps_list/counters.html" %}
+
+    <!-- Apps showcases -->
+    {% include "AppGallery/includes/web_apps_list/apps_showcases.html" %}
+
+
+{% endblock %}

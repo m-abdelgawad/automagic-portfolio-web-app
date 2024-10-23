@@ -1,0 +1,31 @@
+<section class="py-5 posts">
+
+    <section class="container site-padding my-5">
+
+        <!-- Start Section Title -->
+        <div class="row gx-5 justify-content-center">
+            <div class="col-lg-8 col-xl-6 mb-5">
+                <div class="text-center mb-5">
+
+                    <!-- Blog Section Title -->
+                    <h2 class="section-title">{{ home_configs.blog_section_title }}</h2>
+
+                </div>
+            </div>
+        </div>
+        <!-- End Section Title -->
+
+        <!-- Blog List -->
+        {% include "blog/includes/posts.html" with posts=posts %}
+
+        <!-- Outline Button -->
+        <div class="text-center pt-5">
+            <a href="{% url 'blog:blog_home' %}">
+            <button type="button" class="btn btn-success btn-lg px-3 outline-btn">
+                {{ home_configs.blog_button_text }} <i class="{{ home_configs.blog_button_icon }}"></i>
+            </button>
+        </a>
+        </div>
+
+    </section> <!-- End Container -->
+</section>

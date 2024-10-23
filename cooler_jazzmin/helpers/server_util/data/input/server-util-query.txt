@@ -1,0 +1,15 @@
+SELECT
+	TO_CHAR(cpu.created, 'yyyy-mm-dd HH24:MI:SS') as timestamp,
+	cpu.usage_percentage::float AS cpu_percentage,
+	ram.ram_usage_percent::float AS ram_percentage,
+        disk.storage_usage_percent::float AS storage_usage_percent,
+        disk.used_storage_gb::float AS used_storage_gb,
+        disk.free_storage_gb::float AS free_storage_gb
+FROM
+	cpu_stats cpu
+	INNER JOIN ram_stats ram ON cpu.created = ram.created
+	INNER JOIN storage_stats disk ON cpu.created = disk.created
+WHERE
+	cpu.created > CURRENT_DATE - INTERVAL '3 days'
+ORDER BY
+	cpu.created;

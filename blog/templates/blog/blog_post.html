@@ -1,0 +1,163 @@
+{% extends "page_template.html" %}
+{% load static %}
+
+{% block title %}{{ post.title }}{% endblock %}
+{% block og_title %}{{ post.title }}{% endblock %}
+{% block meta_description %}{{ post.body|striptags|truncatechars:100 }}{% endblock %}
+{% block og_image %}{% if post.cover %}{{ post.cover.url }}{% endif %}{% endblock %}
+
+{% block extra_head %}
+
+    <!-- Import highlight.js -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+    <!-- Navbar active link -->
+    <style>
+        #blog-navbar {
+            color: var(--skin-color);
+        }
+    </style>
+{% endblock %}
+
+{% block header_bg_image %}
+    {% if post.cover %}{{ post.cover.url }}{% endif %}
+{% endblock %}
+
+{% block header_bg_image_opacity %}80{% endblock %}
+
+{% block header_title %}{{ post.title }}{% endblock %}
+
+{% block header_subtitle %}
+
+    {% if post.tags.all %}
+    <!-- Post Tags -->
+    <p class="mb-0 mt-0 fs-6 text-white">
+        {% for tag in post.tags.all %}
+            <a href="{% url "blog:blog_list_by_tag" tag.slug %}">
+                <span class="badge rounded-pill bg-secondary text-white" style="font-size: 0.75rem;">#{{ tag.name }}</span>
+            </a>
+            {% comment %} {% if not forloop.last %}, {% endif %} {% endcomment %}
+        {% endfor %}
+    </p>
+    {% endif %}
+
+
+{% endblock %}
+
+{% block breadcrumbs %}
+    <li class="breadcrumb-item">
+        <a class="link-body-emphasis fw-semibold text-decoration-none" href="{% url 'blog:blog_home' %}">Blog</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+        {{ post.title }}
+    </li>
+{% endblock %}
+
+{% block page_content %}
+
+    <!-- Start Section -->
+    <section class="pt-5 post-section">
+
+        <!-- Container -->
+        <div class="container px-4 mt-5">
+
+            <!-- Row -->
+            <div class="row gx-5 justify-content-center">
+
+                <!-- Column -->
+                <div class="col-lg-8">
+
+                    <!-- Post -->
+                    <article>
+
+                        <!-- Post Body-->
+                        <section class="mb-5">
+                            {{ post.body|safe }}
+                        </section>
+
+                    </article>  <!-- End Post -->
+
+                </div>  <!-- End Column -->
+
+            </div>  <!-- End Row -->
+
+        </div>  <!-- End Container -->
+
+    </section>
+    <!-- End Section -->
+
+    <!-- Start Author Section -->
+    <section class="mb-5 author-section ">
+
+        <!-- Container -->
+        <div class="container px-5">
+
+            <!-- Row -->
+            <div class="row gx-5 justify-content-center">
+
+                <!-- Column -->
+                <div class="col-lg-8">
+                    {% include "blog/includes/author_box.html" %}
+                </div>  <!-- End Column -->
+
+            </div>  <!-- End Row -->
+
+        </div>  <!-- End Container -->
+
+    </section>
+    <!-- End Author Section -->
+
+    <!-- Start comment section -->
+    <section>
+        <!-- Container -->
+        <div class="container px-5 mb-5">
+
+            <!-- Row -->
+            <div class="row gx-5 justify-content-center">
+
+                <!-- Column -->
+                <div class="col-lg-8">
+                    {% include 'blog/includes/comments.html' with form=form comments=comments %}
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End comment section -->
+
+    {% if similar_posts %}
+        <!-- Start Similar Posts section -->
+        <section>
+            <!-- Container -->
+            <div class="container px-5 my-4">
+
+                <!-- Start Section Title -->
+                <div class="row gx-5 justify-content-center">
+                    <div class="col-lg-8 col-xl-6 my-4">
+                        <div class="text-center my-4">
+
+                            <!-- Section Title -->
+                            <h6 class="section-title mb-5">Similar Posts</h6>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- End Section Title -->
+
+                {% include "blog/includes/posts.html" with posts=similar_posts %}
+
+            </div>
+        </section>
+        <!-- End Similar Posts section -->
+    {% endif %}
+
+{% endblock %}}
+
+{% block extra_body %}
+    {% if request.method == "POST" %}
+        <script>
+            const element = document.getElementById("comments-anchor");
+            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        </script>
+    {% endif %}
+{% endblock %}

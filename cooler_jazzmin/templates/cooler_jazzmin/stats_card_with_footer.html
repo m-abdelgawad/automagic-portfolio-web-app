@@ -1,0 +1,33 @@
+<!-- Total Projects Count -->
+<div class="col-lg-{{ col_width }}">
+    <!-- Start Card -->
+    <div class="card h-100">
+
+        <!-- Card Header -->
+        <div class="card-header border-0">
+            <h6>{{ card_title }}</h6>
+        </div>
+
+        <!-- Card Body -->
+        <div class="card-body text-center py-0">
+            <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                    <div class="h4 mb-0 text-gray-800">
+                        {{ card_stats|safe }}
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <i class="{{ card_icon }} fa-2x text-gray-300"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card Footer -->
+        <div class="card-footer bg-transparent">
+            <small class="text-left text-muted text-sm">{{ card_footer|safe }}</small>
+        </div>
+
+    </div>
+    <!-- End card -->
+
+</div> <!-- End column -->

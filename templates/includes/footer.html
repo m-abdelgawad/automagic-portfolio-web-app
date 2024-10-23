@@ -1,0 +1,92 @@
+{% load static %}
+
+<footer class="{% if latest_projects.count > 0 %}pt-5{% endif %} mt-auto footer border-top bg-light">
+
+    {% if latest_projects.count > 0 %}
+        <!-- Navbar Section -->
+        <div class="container site-padding">
+            <div class="row">
+                <div class="col-lg-3">
+                    <h3 class="fs-6 mb-3 text-start text-uppercase">About</h3>
+                    <p class="small text-muted text-start mb-3">
+                        Hi, my name is Mohamed AbdelGawad.
+                    </p>
+                    <p class="small text-muted text-start">
+                        I’m a software engineer specializing in building (and occasionally designing) exceptional digital experiences.
+                    </p>
+            {% if site_configs.logo  %}
+                        <img class="m-0" src="{{ site_configs.logo.url }}" width="200px" height="34px" style="max-width: 200px;"/>
+            {% endif %}
+                </div>
+                <div class="col-lg-3 mt-5 mt-lg-0">
+                    <h5 class="fs-6 mb-3 text-start text-uppercase">Recent Projects</h5>
+                    <div class="container">
+                        {% for project in latest_projects %}
+                            <div class="row footer-post">
+                                <div class="col ps-0">
+                                    <a href="{{ project.get_absolute_url }}">
+                                        <i class="fa-solid fa-angle-right float-start mt-1 me-2"></i>
+                                        <h6 class="small mb-3 text-start text-capitalize fw-normal">
+                                            {{ project.title }}
+                                        </h6>
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-lg-3 mt-5 mt-lg-0">
+                    <h5 class="fs-6 mb-3 text-start text-uppercase">Recent Posts</h5>
+                    <div class="container">
+                        {% for post in latest_posts %}
+                            <div class="row footer-post">
+                                <div class="col-4 image-container">
+                                    <a href="{{ post.get_absolute_url }}">
+                                        <img src="{% if post.cover %}{{ post.cover.url }}{% endif %}" alt="post image" width="60px" height="60px" loading="lazy">
+                                    </a>
+                                </div>
+                                <div class="col-8">
+                                    <a href="{{ post.get_absolute_url }}">
+                                        <h6 class="small mb-3 text-start text-capitalize">
+                                            {{ post.title }}
+                                        </h6>
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-lg-3 mt-5 mt-lg-0">
+                    <h5 class="fs-6 mb-3 text-start text-uppercase">Projects Categories</h5>
+                    <div class="container">
+                        <div class="row footer-post">
+                            <div class="col ps-0 text-start">
+                                {% for category in project_categories %}
+                                    <a href="{% url "portfolio:portfolio_home_by_category" category.slug %}">
+                                        <span class="badge rounded-pill text-bg-dark" style="font-size: 0.75rem; background-color: var(--skin-color) !important;">#{{ category.title }}</span>
+                                    </a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div> <!-- End Container -->
+        <!-- End Navbar Section -->
+    {% endif %}
+
+    <!-- Copyrights Section -->
+    <div class="bg-dark {% if latest_projects.count > 0 %}mt-5{% endif %}">
+        <div class="small m-0 py-3 text-white text-center">
+            {% if site_configs.footer_copyright %}
+                {{ site_configs.footer_copyright }}
+            {% else %}
+                Copyright © AutoMagic Developer 2023
+            {% endif %}
+        </div>
+    </div>
+    <!-- End Copyrights Section -->
+
+</footer>

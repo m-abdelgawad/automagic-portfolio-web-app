@@ -1,0 +1,126 @@
+{% extends "page_template.html" %}
+{% load static %}
+
+{% block title %}Insights{% endblock %}
+{% block og_title %}Insights{% endblock %}
+{% block meta_description %}Analytics dashboard to give you a brief about my work{% endblock %}
+{% block og_image %}{% static "assets/automagic-developer.jpg" %}{% endblock %}
+
+{% block extra_head %}
+
+    <link href="{% static "insights/css/dashboard-styles.css" %}" rel="stylesheet" />
+
+    <!-- Navbar active link -->
+    <style>
+        #insights-navbar, #apps-navbar {
+            color: var(--skin-color);
+        }
+    </style>
+
+{% endblock %}
+
+{% block header_bg_image %}
+    {% static "assets/modern-dark-wooden-office.jpg" %}
+{% endblock %}
+
+{% block header_bg_image_opacity %}50{% endblock %}
+
+{% block header_title %}
+    Insights Dashboard
+{% endblock %}
+
+{% block header_subtitle %}
+    <p class="mb-0 mt-0 fs-6 text-white">
+        A dashboard that provides statistics about my projects posted on the website.
+    </p>
+{% endblock %}
+
+{% block breadcrumbs %}
+    <li class="breadcrumb-item">
+        <a class="link-body-emphasis fw-semibold text-decoration-none" href="{% url 'app_gallery:app_gallery' %}">App Gallery</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+        Insights Dashboard
+    </li>
+{% endblock %}
+
+{% block page_content %}
+
+    <!-- Start Projects Section-->
+    <section class="py-5 dashboard">
+
+        <section class="container site-padding my-5">
+
+            <!-- Start first Row -->
+             <div class="row gx-5 justify-content-center">
+
+                 <!-- Start stats box: Total Projects Count -->
+                {% include "insights/includes/stats_box.html" with col_width="4" box_left_border_color="#E8791E" box_title="Total Projects" box_stats=project_count box_icon="fa-solid fa-briefcase" %}
+                <!-- End stats box -->
+
+                 <!-- Start stats box: Total Projects Count -->
+                {% include "insights/includes/stats_box.html" with col_width="4" box_left_border_color="#E8791E" box_title="Last Month Projects" box_stats=month_items box_icon="fa-solid fa-business-time" %}
+                <!-- End stats box -->
+
+                 <!-- Start stats box: Total Projects Count -->
+                {% include "insights/includes/stats_box.html" with col_width="4" box_left_border_color="#E48D34" box_title="Articles" box_stats=posts_count box_icon="fa-solid fa-feather-pointed" %}
+                <!-- End stats box -->
+
+            </div>
+            <!-- End First Row -->
+
+            <!-- Start Second Row -->
+             <div class="row gx-5 justify-content-center">
+
+                <!-- Start Chart Card: Projects Timeline -->
+                {% include "insights/includes/graph_card.html" with col_width="8" min_height="360px" max_height="auto" card_title="Projects Timeline" canvas_id="projectsTimeline" %}
+                <!-- End Chart Card -->
+
+                <!-- Start Chart Card: Projects Categories -->
+                {% include "insights/includes/graph_card.html" with col_width="4" min_height="180px" max_height="auto" card_title="Projects Overview" canvas_id="projectsCategories" %}
+                <!-- End Chart Card -->
+
+             </div> <!-- End Second Row -->
+
+             <!-- Start Third Row -->
+             <div class="row gx-5 justify-content-center">
+
+                <!-- Start Chart Card: Projects Skills -->
+                {% include "insights/includes/graph_card.html" with col_width="12" min_height="500px" max_height="auto" card_title="Top Technical Skills Used in Projects" canvas_id="ProjectsSkills" %}
+                <!-- End Chart Card: Projects Skills -->
+
+             </div> <!-- End Second Row -->
+
+        </section> <!-- End Container -->
+    </section>
+    <!-- End Projects Section-->
+{% endblock %}
+
+{% block extra_body %}
+    {% include "insights/includes/inlines/chartjs_js.html" %}
+    {% include "insights/includes/inlines/chartjs_adapter_date_fns_js.html" %}
+
+    <!-- Set passed variables -->
+    <script>
+        var projects_categories_labels = {{ projects_categories_labels|safe }}
+        var projects_categories_data = {{ projects_categories_data|safe }}
+        var skills_labels = {{ skills_labels|safe }}
+        var skills_data = {{ skills_data|safe }}
+
+        // Prepare the data of the projects timeline graph
+        var projects_timeline_labels = {{ projects_timeline_labels|safe }}
+        var projects_timeline_data = {{ projects_timeline_data|safe }}
+        var projects_timeline_chart_data = []
+        for (let i = 0; i < projects_timeline_labels.length; i++) {
+          projects_timeline_chart_data.push(
+              {x: projects_timeline_labels[i], y: projects_timeline_data[i]}
+          )
+        }
+    </script>
+
+    <!-- Import graphs scripts -->
+    <script src="{% static "insights/js/projects_categories.js" %}"></script>
+    <script src="{% static "insights/js/projects_timeline.js" %}"></script>
+    <script src="{% static "insights/js/projects_skills.js" %}"></script>
+
+{% endblock %}

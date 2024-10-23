@@ -1,0 +1,69 @@
+{% load static %}
+
+<!-- Start comment form -->
+<div id="comments-anchor"></div>
+<div class="card bg-light">
+    <div class="card-header">
+        {% with comments.count as total_comments %}
+            {% if total_comments == 0 %}
+                I'd love to hear your thoughts...
+            {% else %}
+                {{ total_comments }} Comment{{ total_comments|pluralize }}
+            {% endif %}
+        {% endwith %}
+    </div>
+    <div class="card-body">
+
+        <!-- Comment form-->
+        <form action="{% url 'blog:blog_post' post.slug %}" method="post">
+            {% csrf_token %}
+
+            {% if form.errors %}
+                <div class="alert alert-danger">
+                    {{ form.errors }}
+                </div>
+            {% elif request.method == "POST" %}
+                <div class="alert alert-success">
+                    <span>Your comment was posted successfully!</span>
+                </div>
+            {% endif %}
+
+            <div class="form-floating mb-3">
+                <input type="text" name="name" id="id_name" class="form-control" placeholder="Enter your name..." maxlength="70" required>
+                <label for="name">Enter your name...</label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input type="email" name="email" id="id_email" class="form-control" placeholder="name@example.com" maxlength="100" required>
+                <label for="email">Enter your email...</label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <textarea name="body" id="id_body" class="form-control mb-3" style="height: 100px" placeholder="Enter your comment..." required></textarea>
+                <label for="email">Enter your comment...</label>
+            </div>
+
+            <input type="submit" value="Add comment" class="btn btn-success outline-btn py-3">
+
+        </form>
+        <br>
+
+        {% for comment in comments %}
+
+        <!-- Single comment-->
+        <div class="d-flex mt-5">
+            <div class="flex-shrink-0">
+                <i class="fas fa-user-circle fa-2xl"></i>
+            </div>
+            <div class="ms-3">
+                <div class="fw-bold">{{ comment.name }}</div>
+                <div class="small text-muted mb-2"><i class="far fa-calendar"></i> {{ comment.created }}</div>
+                {{ comment.body|linebreaks }}
+            </div>
+        </div>  <!-- End single comment -->
+
+        {% endfor %}
+
+    </div>
+</div>
+<!-- End comment form -->
