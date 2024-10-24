@@ -40,13 +40,13 @@ if not SECRET_KEY:
     SECRET_KEY = ''.join(random.choices(characters, k=12))
 
 CSRF_TRUSTED_ORIGINS = [
-            "https://mohamedabdelgawad.online",
-            "http://mohamedabdelgawad.online",
-            "https://automagicdeveloper.com",
-            "http://automagicdeveloper.com",
-            "http://127.0.0.1",
-            "http://localhost",
-        ]
+    "https://mohamedabdelgawad.online",
+    "http://mohamedabdelgawad.online",
+    "https://automagicdeveloper.com",
+    "http://automagicdeveloper.com",
+    "http://127.0.0.1",
+    "http://localhost",
+]
 
 SITE_ID = 1
 
@@ -122,14 +122,14 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [BASE_DIR / 'templates', ],
         'APP_DIRS': True, 'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-                'cooler_jazzmin.context_processors.get_admin_data'
-            ],
-        },
+        'context_processors': [
+            'django.template.context_processors.debug',
+            'django.template.context_processors.request',
+            'django.contrib.auth.context_processors.auth',
+            'django.contrib.messages.context_processors.messages',
+            'cooler_jazzmin.context_processors.get_admin_data'
+        ],
+    },
     },
 ]
 
@@ -203,15 +203,15 @@ STATICFILES_DIRS = [
 django_heroku.settings(locals(), staticfiles=False)
 
 cloudinary.config(
-  	cloud_name = "djf4oxjan",
-  	api_key = "173846963753179",
-  	api_secret = "o5912AatPUylCs0qHKLk4a2qeOw"
+    cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME'),
+    api_key=os.getenv('CLOUDINARY_API_KEY'),
+    api_secret=os.getenv('CLOUDINARY_API_SECRET')
 )
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': "djf4oxjan",
-  	'API_KEY': "173846963753179",
-  	'API_SECRET': "o5912AatPUylCs0qHKLk4a2qeOw"
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET')
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
