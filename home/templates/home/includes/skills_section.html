@@ -22,8 +22,7 @@
                     {% for skill in skills %}
 
                         <!-- Start Skill -->
-                        <div class="col mb-5 h-100">
-
+                        <div class="col mb-5 h-100 skill">
                             <!-- Skill Icon -->
                             <div class="feature skill-icon text-white rounded-circle mb-4">
                                 <i class="{{ skill.icon }}"></i>
@@ -36,7 +35,6 @@
                             <p class="mb-0">
                                 {{ skill.description }}
                             </p>
-
                         </div> <!-- End Skill -->
 
                     {% endfor %}
