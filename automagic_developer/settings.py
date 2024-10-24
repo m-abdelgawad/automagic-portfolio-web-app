@@ -139,6 +139,7 @@ WSGI_APPLICATION = 'automagic_developer.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 if is_production:
+    print("Using production database")
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -150,6 +151,7 @@ if is_production:
         }
     }
 else:
+    print("Using development database")
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
