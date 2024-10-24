@@ -1,3 +1,4 @@
+from cloudinary.models import CloudinaryField
 from django.db import models
 
 
@@ -29,7 +30,8 @@ class Configuration(models.Model):
     hero_button_text = models.CharField(max_length=250, null=True, blank=True)
     hero_button_icon = models.CharField(max_length=250, null=True, blank=True)
     hero_button_url = models.CharField(max_length=250, null=True, blank=True)
-    hero_animation_file = models.FileField(upload_to='uploads/home_configuration/', null=True, blank=True)
+    # hero_animation_file = models.FileField(upload_to='uploads/home_configuration/', null=True, blank=True)
+    hero_animation_file = CloudinaryField(resource_type='')
 
     skills_section_title = models.CharField(max_length=250, null=True, blank=True)
 

@@ -14,6 +14,10 @@ import random
 import string
 from pathlib import Path
 import django_heroku
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+import cloudinary_storage
 import dj_database_url
 
 # Import custom configurations
@@ -90,6 +94,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'taggit',
     'django.contrib.postgres',
+
+    'cloudinary',
+    'cloudinary_storage'
 ]
 
 MIDDLEWARE = [
@@ -193,3 +200,16 @@ STATICFILES_DIRS = [
 
 django_heroku.settings(locals(), staticfiles=False)
 
+cloudinary.config(
+  	cloud_name = "djf4oxjan",
+  	api_key = "173846963753179",
+  	api_secret = "o5912AatPUylCs0qHKLk4a2qeOw"
+)
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': "djf4oxjan",
+  	'API_KEY': "173846963753179",
+  	'API_SECRET': "o5912AatPUylCs0qHKLk4a2qeOw"
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'

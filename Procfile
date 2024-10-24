@@ -1,0 +1,1 @@
+web gunicorn automagic_developer.wsgi:application --log-file -
