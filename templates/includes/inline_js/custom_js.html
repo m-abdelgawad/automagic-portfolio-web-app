@@ -1,0 +1,38 @@
+<script defer>
+    // Get the navbar element
+    const navbar = document.querySelector('.navbar');
+
+    // Add an event listener to the window object to listen for the scroll event
+    window.addEventListener('scroll', function() {
+    // Check the current position of the page
+    if (window.pageYOffset > 0) {
+        // Add the border-bottom class to the navbar
+        navbar.classList.add('border-bottom');
+    } else {
+        // Remove the border-bottom class from the navbar
+        navbar.classList.remove('border-bottom');
+    }
+    });
+</script>
+
+<!--JavaScript for Scroll Detection-->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const sectionTitles = document.querySelectorAll('.section-title');
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                } else {
+                    entry.target.classList.remove('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        sectionTitles.forEach(title => {
+            observer.observe(title);
+        });
+    });
+</script>
+

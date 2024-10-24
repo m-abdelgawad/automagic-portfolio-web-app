@@ -746,49 +746,65 @@
     }
 
     /* Hover effect for skill div */
-/* Prevent horizontal scrollbar on hover without cutting off animation */
-.skills {
-    overflow-x: hidden; /* Hide horizontal scrollbar */
-}
-
-@media (max-width: 768px) {
-    .skill {
-        transform: scale(1.02); /* Slightly reduce scaling for mobile */
-        transition: transform 0.3s ease-in-out;
+    /* Prevent horizontal scrollbar on hover without cutting off animation */
+    .skills {
+        overflow-x: hidden; /* Hide horizontal scrollbar */
     }
-}
 
-.skill:hover {
-    transform: scale(1.05);
-    transition: transform 0.3s ease-in-out;
-    overflow: hidden;  /* Ensure no overflow during hover */
-}
+    @media (max-width: 768px) {
+        .skill {
+            transform: scale(1.02); /* Slightly reduce scaling for mobile */
+            transition: transform 0.3s ease-in-out;
+        }
+    }
 
-.skill:hover .skill-icon {
-    background-color: var(--skin-color-light);
-    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
-    transform: rotate(360deg); /* Rotate icon on hover */
-}
+    .skill:hover {
+        transform: scale(1.05);
+        transition: transform 0.3s ease-in-out;
+        overflow: hidden; /* Ensure no overflow during hover */
+    }
 
-.skill:hover .skill-title::after {
-    content: '';
-    display: block;
-    width: 50%;
-    height: 2px;
-    background-color: var(--skin-color);
-    margin: 10px auto 0;
-    transition: width 0.3s ease-in-out;
-}
+    .skill:hover .skill-icon {
+        background-color: var(--skin-color-light);
+        transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+        transform: rotate(360deg); /* Rotate icon on hover */
+    }
 
-.skill-title::after {
-    content: '';
-    display: block;
-    width: 0;
-    height: 2px;
-    background-color: var(--skin-color);
-    margin: 10px auto 0;
-    transition: width 0.3s ease-in-out;
-}
+    .skill:hover .skill-title::after {
+        content: '';
+        display: block;
+        width: 50%;
+        height: 2px;
+        background-color: var(--skin-color);
+        margin: 10px auto 0;
+        transition: width 0.3s ease-in-out;
+    }
+
+    .skill-title::after {
+        content: '';
+        display: block;
+        width: 0;
+        height: 2px;
+        background-color: var(--skin-color);
+        margin: 10px auto 0;
+        transition: width 0.3s ease-in-out;
+    }
+
     /* End Hover effect for skill div */
+
+    /*Start skill title animation*/
+    /* Initial state for the section-title */
+    .section-title {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    /* Animated state when it comes into view */
+    .section-title.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    /*End skill title animation*/
 
 </style>
