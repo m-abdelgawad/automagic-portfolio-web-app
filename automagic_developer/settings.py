@@ -28,7 +28,7 @@ from .configs.recaptcha import *
 from .configs.rest_framework_options import *
 
 # Get the production setting from environment variable
-is_production = os.getenv('IS_PRODUCTION') == 'False'
+is_production = os.getenv('IS_PRODUCTION') == 'True'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG') == 'True'
