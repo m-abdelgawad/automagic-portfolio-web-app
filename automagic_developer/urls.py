@@ -23,13 +23,11 @@ from blog.sitemaps import PostSitemap
 from portfolio.sitemaps import ProjectSitemap
 from home.sitemaps import StaticSitemap
 
-
 sitemaps = {
     'posts': PostSitemap,
     'projects': ProjectSitemap,
     'static': StaticSitemap,
 }
-
 
 urlpatterns = [
 
@@ -62,7 +60,6 @@ if settings.DEBUG:
 
 # Change admin panel title
 admin.site.site_header = 'AutoMagic Developer'
-
 
 handler400 = 'friendly_errors.views.error_400'
 handler403 = 'friendly_errors.views.error_403'

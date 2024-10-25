@@ -2,7 +2,6 @@ import logging
 import psycopg2 as postgres
 from psycopg2.extras import RealDictCursor
 
-
 # Import logger
 log = logging.getLogger(__name__)
 

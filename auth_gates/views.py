@@ -1,12 +1,12 @@
-from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
+
 from .forms import UserLoginForm, RegistrationForm
 
 
 def authenticate_user(request):
-
     login_form = UserLoginForm()
     register_form = RegistrationForm()
     next_url = request.GET.get('next', reverse_lazy('home:home'))
@@ -32,7 +32,6 @@ def authenticate_user(request):
             register_form = RegistrationForm(request.POST)
 
             if register_form.is_valid():
-
                 new_user = register_form.save()
 
                 login(request, new_user)

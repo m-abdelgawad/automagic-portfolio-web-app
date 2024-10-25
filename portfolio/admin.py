@@ -1,6 +1,6 @@
 from django.contrib import admin
+
 from .models import Project, Category
-from django.db.models import Count
 
 
 # Customizing how models are displayed
@@ -58,7 +58,6 @@ class ProjectAdmin(admin.ModelAdmin):
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-
     list_display = ['title', 'slug', 'projects_count']
 
     list_filter = ['title', 'slug', ]

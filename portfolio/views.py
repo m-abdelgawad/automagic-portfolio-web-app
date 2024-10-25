@@ -1,10 +1,11 @@
-from django.shortcuts import render, get_object_or_404
-from .models import Project, Category
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from taggit.models import Tag
-from django.db.models import Count
 from itertools import chain
 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Count
+from django.shortcuts import render, get_object_or_404
+from taggit.models import Tag
+
+from .models import Project, Category
 
 # Define the number of elements in one page
 page_elements_count = 6
@@ -15,7 +16,6 @@ similar_projects_count = 3
 
 # Create your views here.
 def portfolio_home(request, tag_slug=None, category_slug=None):
-
     project_list = Project.published.all().order_by('-complete_date')
 
     if tag_slug:
@@ -23,13 +23,13 @@ def portfolio_home(request, tag_slug=None, category_slug=None):
         project_list = project_list.filter(skills__in=[tag])
     else:
         tag = None
-        
+
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         project_list = project_list.filter(category__in=[category])
     else:
         category = None
-        
+
     projects_count = project_list.count()
 
     # Pagination with page_elements_count per page
@@ -65,7 +65,6 @@ def portfolio_home(request, tag_slug=None, category_slug=None):
 
 
 def portfolio_project(request, project):
-
     project = get_object_or_404(Project, slug=project
                                 , status=Project.Status.PUBLISHED)
 
@@ -89,16 +88,16 @@ def portfolio_project(request, project):
     # number of shared tags. We slice the result to retrieve only the first
     # three projects.
     similar_projects = similar_projects.annotate(same_skills=Count('skills')) \
-                        .order_by('-same_skills', '-complete_date')[:similar_projects_count]
+                           .order_by('-same_skills', '-complete_date')[:similar_projects_count]
 
     # Fill similar projects with normal projects; if the similar projects are less than
     # the required similar_projects_count
     if len(similar_projects) < similar_projects_count:
         extra_projects_count = similar_projects_count - len(similar_projects)
         extra_projects = Project.published.order_by('-complete_date').exclude(id=project.id) \
-                          .exclude(id__in=similar_projects)[:extra_projects_count]
+                             .exclude(id__in=similar_projects)[:extra_projects_count]
         similar_projects = list(chain(similar_projects, extra_projects))
-    
+
     return render(
         request,
         'portfolio/portfolio_project.html',

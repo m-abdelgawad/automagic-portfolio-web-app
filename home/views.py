@@ -1,10 +1,10 @@
 from django.shortcuts import render
 
+from blog.models import Post
+from portfolio.models import Project
 # Create your views here.
 from .models import Skill
-from portfolio.models import Project
-from blog.models import Post
-from AppGallery.models import SliderShowcaseApp
+
 
 # Create your views here.
 def home(request):

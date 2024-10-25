@@ -1,11 +1,11 @@
 from django.contrib import admin
+
 from .models import Skill, Configuration
 
 
 # Register your models here.
 @admin.register(Skill)
 class ProjectAdmin(admin.ModelAdmin):
-
     list_display = ['title', 'status', 'icon', 'description', 'order', ]
 
     list_filter = ['status', ]

@@ -1,5 +1,5 @@
 /* Content Padding */
-.content-wrapper>.content {
+.content-wrapper > .content {
     padding: 1rem 1rem;
 }
 
@@ -10,33 +10,41 @@ footer.main-footer {
 a#jazzy-logo {
     text-align: center;
 }
+
 h3.timeline-header.no-border {
     word-break: normal;
     display: inline-block;
 }
-.timeline>div>.timeline-item>.time {
+
+.timeline > div > .timeline-item > .time {
     float: left;
 }
+
 #content-main > form > div > div.col-12.col-lg-9 {
     flex: 0 0 100%;
     max-width: 100%;
 }
+
 #content-main > form > div > div.col-12.col-lg-3 {
     display: contents;
     margin: auto;
 }
+
 #jazzy-actions {
     margin: auto;
 }
+
 #jazzy-actions div, .object-tools {
     display: inline-block;
 }
+
 .object-tools .btn:not(:disabled):not(.disabled) {
     display: initial;
     padding: 0.375rem 0.75rem;
     padding: 0.58rem 0.5rem;
     border-radius: 5px;
 }
+
 /* Account Drop menu in the top nav -- disable see profile button in the bottom */
 #jazzy-usermenu > a.dropdown-item.dropdown-footer {
     display: none;
@@ -51,6 +59,7 @@ h3.timeline-header.no-border {
 .login-logo {
     display: none;
 }
+
 body.jazzmin-login-page {
     height: auto;
     margin-top: 5rem;
@@ -59,19 +68,21 @@ body.jazzmin-login-page {
 li.nav-item.d-none.d-sm-inline-block {
     display: block !important;
 }
+
 /* Updated item link color */
 #content > div.alert.alert-success.alert-dismissible > a {
     color: #fff;
 }
+
 form > div.row > div.col-12.col-lg-9 > div > div > div.form-group.errors.field-complete_date > div > div > br,
-#project_form > div > div.col-12.col-lg-9 > div > div > div.form-group.field-complete_date > div > div > br
-{
+#project_form > div > div.col-12.col-lg-9 > div > div > div.form-group.field-complete_date > div > div > br {
     display: contents;
 }
 
 .django-ckeditor-widget {
     width: 100%;
 }
+
 span.small.quiet {
     margin-left: 1rem;
 }
@@ -92,10 +103,11 @@ span.small.quiet {
 }
 
 /* Graph Card Header Background */
-.graph-card-header{
+.graph-card-header {
     background-color: rgba(0, 0, 0, 0.03);
 }
-.table-col-name{
+
+.table-col-name {
     width: max-content;
 }
 
@@ -108,9 +120,11 @@ a.date-hierarchy-btn {
 select#id_permissions_to {
     height: 18.5rem;
 }
-.selector-available, .selector-chosen{
+
+.selector-available, .selector-chosen {
     width: 43%;
 }
+
 .selector ul.selector-chooser {
     width: 22px;
     margin-left: 1%;
@@ -124,9 +138,11 @@ select#id_permissions_to {
     border: 1px solid #ccc;
     border-radius: 5px;
 }
+
 div:has(> a i.raw-id-search-icon) {
     white-space: nowrap;
 }
+
 a:has(> i.raw-id-search-icon) {
     margin-left: -40px;
 }
@@ -144,7 +160,8 @@ a:has(> i.raw-id-search-icon) {
 .calendar > table > tbody > tr > td > a:hover {
     color: #fff !important;
 }
-.calendar-shortcuts a, .calendar-cancel a, .timelist li a {  /* Time shortcuts */
+
+.calendar-shortcuts a, .calendar-cancel a, .timelist li a { /* Time shortcuts */
     font-size: 15px;
 }
 
@@ -163,20 +180,21 @@ input[type="file"] {
 }
 
 /* Sub items in the sidebar menu */
-[class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link {
-    // padding-left: 2rem;
+[class*=sidebar-dark-] .nav-treeview > .nav-item > .nav-link {
+/ / padding-left: 2 rem;
     border-radius: 0;
 }
+
 #jazzy-sidebar > div > nav > ul > li.nav-item.has-treeview.menu-is-opening.menu-open > ul > li:last-child a {
     border-bottom: 1px solid #fff;
 }
 
-#jazzy-sidebar > div > nav > ul > li.nav-item.has-treeview.menu-is-opening.menu-open > ul > li a.active{
+#jazzy-sidebar > div > nav > ul > li.nav-item.has-treeview.menu-is-opening.menu-open > ul > li a.active {
     border-bottom: 0px;
 }
 
 /* Sidebar dropdown menu icon */
-.nav-sidebar .menu-is-opening>.nav-link i.right, .nav-sidebar .menu-open>.nav-link i.right {
+.nav-sidebar .menu-is-opening > .nav-link i.right, .nav-sidebar .menu-open > .nav-link i.right {
     -webkit-transform: rotate(90deg);
     transform: rotate(90deg);
 }
@@ -187,13 +205,16 @@ input[type="file"] {
     font-size: 21px;
     color: #555;
 }
+
 .navigator-breadcrumbs-folder-name-inner {
     color: #555;
 }
+
 .filer-navigator-breadcrumbs-dropdown-container.filer-dropdown-container {
     margin-right: -5px;
 }
-.navigator-top-nav .breadcrumbs-container-inner .filer-dropdown-container{
+
+.navigator-top-nav .breadcrumbs-container-inner .filer-dropdown-container {
     width: 37px !important;
 }
 
@@ -205,16 +226,18 @@ button:focus,
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible,
-button:focus-visible{
+button:focus-visible {
     outline: 1px solid #cccbcb;
 }
 
 .main-sidebar .sidebar {
     overflow-y: initial !important;
 }
+
 .select2-container {
     max-width: 100% !important;
 }
+
 .form-group div .vLargeTextField {
     font-size: 1rem !important;
 }

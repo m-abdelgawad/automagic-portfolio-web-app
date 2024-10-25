@@ -5,7 +5,7 @@ const pagesTrafficData = {
     // Chart Datasets
     datasets: [{
         label: 'Active Users',
-        backgroundColor: ['#3C87D5', ],
+        backgroundColor: ['#3C87D5',],
         data: users_page_data,
         borderWidth: 1
     }]  // End datasets
@@ -14,7 +14,7 @@ const pagesTrafficData = {
 // Legend Margin plugin block
 const pagesTrafficLegendMargin = {
     id: 'legendMargin',
-    beforeInit(chart, legend, options){
+    beforeInit(chart, legend, options) {
         const fitValue = chart.legend.fit
         chart.legend.fit = function fit() {
             fitValue.bind(chart.legend)();

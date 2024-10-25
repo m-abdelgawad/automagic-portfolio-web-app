@@ -13,7 +13,6 @@ JAZZMIN_SETTINGS = {
     # current_admin_site.site_header if absent or None)
     "site_brand": "AutoMagic Developer",
 
-
     # # Logo to use for your site, must be present in static files,
     # # used for brand on top left
     "site_logo": None,

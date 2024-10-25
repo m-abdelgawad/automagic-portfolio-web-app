@@ -7,7 +7,6 @@ from logging.handlers import RotatingFileHandler
 
 
 def setup_app_logger(logger_name, log_file_path=None):
-
     # Create a logger
     logger = logging.getLogger(logger_name)
 
@@ -32,10 +31,9 @@ def setup_app_logger(logger_name, log_file_path=None):
 
     # Check if the function received a file name; to insert the logs inside it
     if log_file_path:
-
         # Set a FileHandler write the logs inside the file
         file_handler = RotatingFileHandler(
-            filename=log_file_path, mode='a', maxBytes=5*1024*1024,
+            filename=log_file_path, mode='a', maxBytes=5 * 1024 * 1024,
             backupCount=100, encoding='utf8', delay=False
         )
 
@@ -50,7 +48,6 @@ def setup_app_logger(logger_name, log_file_path=None):
 
 
 def create_log_file(app_name, parent_dir_path):
-
     # Create logs folder if not exists
     logs_folder_path = os.path.join(parent_dir_path, 'logs')
     if not os.path.exists(logs_folder_path):
@@ -73,7 +70,6 @@ def create_log_file(app_name, parent_dir_path):
 
 
 def get(app_name='logs', enable_logs_file=True):
-
     if enable_logs_file:
 
         # Get absolute path of the caller module

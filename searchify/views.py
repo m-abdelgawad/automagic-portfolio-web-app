@@ -1,13 +1,13 @@
-from django.shortcuts import render
-from .forms import SearchForm
 from django.db.models import Q
+from django.shortcuts import render
+
 from blog.models import Post
 from portfolio.models import Project
+from .forms import SearchForm
 
 
 # Create your views here.
 def post_search(request):
-
     form = SearchForm()
 
     query = None
@@ -19,7 +19,6 @@ def post_search(request):
         form = SearchForm(request.GET)
 
         if form.is_valid():
-
             query = form.cleaned_data['query']
 
             blog_results = Post.published.filter(

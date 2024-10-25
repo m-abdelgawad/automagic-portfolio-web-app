@@ -6,7 +6,7 @@ const projectsCategoriesData = {
     datasets: [{
         label: 'Projects',
         data: projects_categories_data,
-        backgroundColor: ['#E8791E', '#FF5722', '#E64E1F', '#CC461B', '#B33D18', '#993414', '#802C11', '#66230E', '#4D1A0A', ],
+        backgroundColor: ['#E8791E', '#FF5722', '#E64E1F', '#CC461B', '#B33D18', '#993414', '#802C11', '#66230E', '#4D1A0A',],
         borderWidth: 1
     }]  // End datasets
 };  // End data
@@ -14,7 +14,7 @@ const projectsCategoriesData = {
 // Legend Margin plugin block
 const projectsCategoriesLegendMargin = {
     id: 'legendMargin',
-    beforeInit(chart, legend, options){
+    beforeInit(chart, legend, options) {
         const fitValue = chart.legend.fit
 
         chart.legend.fit = function fit() {

@@ -1,6 +1,6 @@
 from django import template
-from ..models import Post, AuthorBox
 
+from ..models import Post, AuthorBox
 
 register = template.Library()
 

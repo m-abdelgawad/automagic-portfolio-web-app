@@ -1,9 +1,10 @@
-from django.shortcuts import render, get_object_or_404
-from .models import Post, Comment
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .forms import CommentForm
-from django.views.decorators.http import require_POST
+from django.shortcuts import render, get_object_or_404
 from taggit.models import Tag
+
+from .forms import CommentForm
+from .models import Post
+
 """
 This is the Count aggregation function of the Django ORM. This function will 
 allow you to perform aggregated counts of tags. django.db.models includes the 
@@ -16,7 +17,6 @@ following aggregation functions:
 from django.db.models import Count
 from itertools import chain
 
-
 # Define the number of elements in one page
 page_elements_count = 6
 
@@ -26,14 +26,13 @@ similar_posts_count = 3
 
 # Create your views here.
 def blog_list(request, tag_slug=None):
-
     post_list = Post.published.all()
 
     tag = None
     if tag_slug:
         tag = get_object_or_404(Tag, slug=tag_slug)
         post_list = post_list.filter(tags__in=[tag])
-        
+
     posts_count = post_list.count()
 
     # Pagination with page_elements_count per page
@@ -68,7 +67,6 @@ def blog_list(request, tag_slug=None):
 
 
 def blog_post(request, post_slug):
-
     post = get_object_or_404(
         Post,
         slug=post_slug,
@@ -118,14 +116,14 @@ def blog_post(request, post_slug):
     # by publish to display recent posts first for the posts with the same
     # number of shared tags. We slice the result to retrieve only the first
     # three posts.
-    similar_posts = similar_posts.annotate(same_tags=Count('tags'))\
+    similar_posts = similar_posts.annotate(same_tags=Count('tags')) \
                         .order_by('-same_tags', '-created')[:similar_posts_count]
 
     # Fill similar posts with normal posts; if the similar posts are less than
     # the required similar_posts_count
     if len(similar_posts) < similar_posts_count:
         extra_posts_count = similar_posts_count - len(similar_posts)
-        extra_posts = Post.published.order_by('-created').exclude(id=post.id)\
+        extra_posts = Post.published.order_by('-created').exclude(id=post.id) \
                           .exclude(id__in=similar_posts)[:extra_posts_count]
         similar_posts = list(chain(similar_posts, extra_posts))
 

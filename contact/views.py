@@ -1,12 +1,12 @@
-from django.shortcuts import render
-from .forms import ContactForm
-from django.core.mail import send_mail
 from django.conf import settings
+from django.core.mail import send_mail
+from django.shortcuts import render
+
+from .forms import ContactForm
 
 
 # Create your views here.
 def contact(request):
-
     sent = False
 
     if request.method == 'POST':
@@ -24,11 +24,11 @@ def contact(request):
             )
 
             body = 'Hi,\n\n' + \
-                '"{0}" just sent you the following message.\n' + '-'*20 + \
-                '\n{1}\n' + '-'*20 + '\n' + \
-                'Phone Number: {2}\n' + 'Email Address: {3}\n\n' + \
-                'Thanks and best regards,\n' +  \
-                'Mohamed from AutoMagic Developer'
+                   '"{0}" just sent you the following message.\n' + '-' * 20 + \
+                   '\n{1}\n' + '-' * 20 + '\n' + \
+                   'Phone Number: {2}\n' + 'Email Address: {3}\n\n' + \
+                   'Thanks and best regards,\n' + \
+                   'Mohamed from AutoMagic Developer'
 
             body = body.format(cd['name'], cd['message'], cd['phone'], cd['email'])
 

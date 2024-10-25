@@ -1,10 +1,10 @@
 from django.shortcuts import render
+
 from .models import SliderShowcaseApp, CounterUpItem
 
 
 # Create your views here.
 def apps_list(request):
-
     # Retrieve all objects with status "Published"
     counter_items = CounterUpItem.objects.filter(status=CounterUpItem.Status.PUBLISHED).order_by('order')
 

@@ -1,8 +1,8 @@
 from django import template
-from ..models import Configuration
+
 from blog.models import Post
 from portfolio.models import Project, Category
-
+from ..models import Configuration
 
 register = template.Library()
 

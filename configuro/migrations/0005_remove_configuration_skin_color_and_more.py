@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("configuro", "0004_configuration_skin_color_and_more"),
     ]

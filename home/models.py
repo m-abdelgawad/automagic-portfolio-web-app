@@ -22,7 +22,6 @@ class Skill(models.Model):
 
 
 class Configuration(models.Model):
-
     hero_intro = models.CharField(max_length=250, null=True, blank=True)
     hero_title = models.CharField(max_length=250, null=True, blank=True)
     hero_sub_title = models.CharField(max_length=250, null=True, blank=True)

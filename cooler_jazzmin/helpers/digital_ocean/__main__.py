@@ -6,7 +6,6 @@ from .packages.logger import logger
 from .packages.digitalOcean import digitalOcean
 import threading
 
-
 # Initiate logger
 log = logger.get(app_name='digital-ocean', enable_logs_file=False)
 
@@ -39,7 +38,6 @@ def get_droplet_specs(docn, output_dict, config):
 
 
 def main():
-
     log.info('Start program execution')
 
     project_abs_path = file.caller_dir_path()

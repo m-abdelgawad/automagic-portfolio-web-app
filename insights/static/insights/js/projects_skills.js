@@ -5,7 +5,7 @@ const projectsSkillsData = {
     // Chart Datasets
     datasets: [{
         label: 'Projects',
-        backgroundColor: ['#E8791E', ],
+        backgroundColor: ['#E8791E',],
         data: skills_data,
         borderWidth: 1,
     }]  // End datasets
@@ -14,7 +14,7 @@ const projectsSkillsData = {
 // Legend Margin plugin block
 const projectsSkillsLegendMargin = {
     id: 'legendMargin',
-    beforeInit(chart, legend, options){
+    beforeInit(chart, legend, options) {
         const fitValue = chart.legend.fit
         chart.legend.fit = function fit() {
             fitValue.bind(chart.legend)();
@@ -54,7 +54,7 @@ const projectsSkillsConfig = {
                     autoSkip: false,
                     // Begin y axis from zero
                     beginAtZero: true
-            }
+                }
             },
             x: {
                 ticks: {

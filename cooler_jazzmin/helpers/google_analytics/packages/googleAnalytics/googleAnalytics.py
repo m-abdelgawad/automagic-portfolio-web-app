@@ -9,7 +9,6 @@ from google.analytics.data_v1beta.types import (
     BatchRunReportsRequest,
 )
 
-
 # Import logger
 log = logging.getLogger(__name__)
 

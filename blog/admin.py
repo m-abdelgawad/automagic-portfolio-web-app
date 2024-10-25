@@ -40,7 +40,6 @@ class PostAdmin(admin.ModelAdmin):
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
-
     list_display = ['name', 'email', 'post', 'created', 'active']
 
     list_filter = ['active', 'created', 'updated', ]

@@ -1,6 +1,5 @@
 import os
 
-
 # Email server configuration
 EMAIL_HOST = str(os.getenv('EMAIL_HOST'))
 EMAIL_HOST_USER = str(os.getenv('EMAIL_HOST_USER'))

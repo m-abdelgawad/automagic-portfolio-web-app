@@ -3,7 +3,6 @@ from django.db import models
 
 # Create your models here.
 class Configuration(models.Model):
-
     class TitleSeperator(models.TextChoices):
         DASH = '-', '-'
         PIPE = '|', '|'

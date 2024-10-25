@@ -1,9 +1,9 @@
 from django.contrib.sitemaps import Sitemap
+
 from .models import Project
 
 
 class ProjectSitemap(Sitemap):
-
     changefreq = 'weekly'
 
     priority = 0.9

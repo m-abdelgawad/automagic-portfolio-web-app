@@ -6,13 +6,11 @@ from .packages.logger import logger
 from .packages.postgredb import postgredb
 from .packages.datetimetools import datetimetools
 
-
 # Initiate logger
 log = logger.get(app_name='logs', enable_logs_file=False)
 
 
 def main():
-
     log.info('Start program execution')
 
     project_abs_path = file.caller_dir_path()
@@ -45,10 +43,10 @@ def main():
 
     # Create a database instance
     db = postgredb.PostgreSQLDB(
-        host = os.getenv('DB_HOSTNAME'),
-        db_name = os.getenv('DB_NAME'),
-        username = os.getenv('DB_USERNAME'),
-        password = os.getenv('DB_PASSWORD')
+        host=os.getenv('DB_HOSTNAME'),
+        db_name=os.getenv('DB_NAME'),
+        username=os.getenv('DB_USERNAME'),
+        password=os.getenv('DB_PASSWORD')
     )
 
     # Execute the query

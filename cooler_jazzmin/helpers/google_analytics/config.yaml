@@ -3,5 +3,5 @@ AnalyticsAccount:
   key_path: 'data/input/google_analytics_service-account-key.json'
 
 AnalyticsReport:
-  dimensions_names: ['country', 'date', 'pageTitle', 'deviceCategory']
-  metrics: ['activeUsers']
+  dimensions_names: [ 'country', 'date', 'pageTitle', 'deviceCategory' ]
+  metrics: [ 'activeUsers' ]

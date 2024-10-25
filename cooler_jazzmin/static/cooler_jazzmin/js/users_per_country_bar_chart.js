@@ -5,7 +5,7 @@ const countryTrafficData = {
         label: 'Active Users',
         // Chart Data
         data: users_country_data,
-        backgroundColor: ['#3C87D5', ],
+        backgroundColor: ['#3C87D5',],
         borderWidth: 1
     }]  // End datasets
 };  // End data
@@ -13,7 +13,7 @@ const countryTrafficData = {
 // Legend Margin plugin block
 const countryTrafficLegendMargin = {
     id: 'legendMargin',
-    beforeInit(chart, legend, options){
+    beforeInit(chart, legend, options) {
         const fitValue = chart.legend.fit
         chart.legend.fit = function fit() {
             fitValue.bind(chart.legend)();

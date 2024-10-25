@@ -1,10 +1,10 @@
+from ckeditor_uploader.fields import RichTextUploadingField
+from crum import get_current_user
+from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
-from crum import get_current_user
 from django.utils import timezone
-from django.contrib.auth.models import User
 from taggit.managers import TaggableManager
-from ckeditor_uploader.fields import RichTextUploadingField
 
 
 # Creating model managers
@@ -114,7 +114,6 @@ class Comment(models.Model):
 
 
 class AuthorBox(models.Model):
-
     box_title = models.CharField(max_length=250, null=True, blank=True)
 
     author_name = models.CharField(max_length=250, null=True, blank=True)

@@ -6,7 +6,7 @@ const devicesTrafficData = {
     datasets: [{
         label: 'Active Users',
         data: users_device_data,
-        backgroundColor: ['#3C87D5', '#2f619d', '#3368ac', '#487ab9', '#5d7abe', '#4c80c9', '#3c87d5', '#9bacd3', '#dee8f0', ],
+        backgroundColor: ['#3C87D5', '#2f619d', '#3368ac', '#487ab9', '#5d7abe', '#4c80c9', '#3c87d5', '#9bacd3', '#dee8f0',],
         borderWidth: 1
     }]  // End datasets
 };  // End data
@@ -14,7 +14,7 @@ const devicesTrafficData = {
 // Legend Margin plugin block
 const devicesTrafficLegendMargin = {
     id: 'legendMargin',
-    beforeInit(chart, legend, options){
+    beforeInit(chart, legend, options) {
         const fitValue = chart.legend.fit
 
         chart.legend.fit = function fit() {

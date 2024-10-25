@@ -27,6 +27,7 @@ class DigitalOcean:
         get_droplet_specs(droplet_name)
 
     """
+
     def __init__(self, bearer_token):
         self.headers = None
         self._setup_token(bearer_token=bearer_token)
@@ -191,7 +192,7 @@ class DigitalOcean:
             price_monthly,
             ip
         """
-        try: 
+        try:
             api_url = self._build_api_url('/droplets')
 
             response = requests.request("GET", api_url, headers=self.headers)
@@ -209,7 +210,7 @@ class DigitalOcean:
                 'id': droplet_dict['id'],
                 'name': droplet_dict['name'],
                 'vcpus': droplet_dict['vcpus'],
-                'memory': str(int(droplet_dict['memory']/1024)),
+                'memory': str(int(droplet_dict['memory'] / 1024)),
                 'disk': str(droplet_dict['disk']),
                 'price_monthly': '{0:.2f}'.format(droplet_dict['size']['price_monthly']),
                 'ip': droplet_dict['networks']['v4'][0]['ip_address'],

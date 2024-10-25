@@ -3,7 +3,6 @@ from django.db import models
 
 # Create your models here.
 class SliderShowcaseApp(models.Model):
-
     # Adding a status field
     class Status(models.TextChoices):
         DRAFT = 'DF', 'Draft'
@@ -34,7 +33,6 @@ class SliderShowcaseApp(models.Model):
 
 
 class CounterUpItem(models.Model):
-
     # Adding a status field
     class Status(models.TextChoices):
         DRAFT = 'DF', 'Draft'

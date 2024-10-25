@@ -3,19 +3,19 @@ const ramUtilData = {
     labels: util_time_labels,
     datasets: [
         {
-        label: 'RAM Utilization',
-        // Chart Data
-        data: ram_util_data,
-        backgroundColor: ['#3C87D5', ],
-        borderColor: ['#3C87D5', ],
-        pointRadius: 3,
-        pointBackgroundColor: ['#3C87D5', ],
-        pointBorderColor: ['#3C87D5', ],
-        pointHoverRadius: 3,
-        pointHoverBackgroundColor: ['#3C87D5', ],
-        pointHoverBorderColor: ['#3C87D5', ],
-        pointHitRadius: 10,
-        pointBorderWidth: 2,
+            label: 'RAM Utilization',
+            // Chart Data
+            data: ram_util_data,
+            backgroundColor: ['#3C87D5',],
+            borderColor: ['#3C87D5',],
+            pointRadius: 3,
+            pointBackgroundColor: ['#3C87D5',],
+            pointBorderColor: ['#3C87D5',],
+            pointHoverRadius: 3,
+            pointHoverBackgroundColor: ['#3C87D5',],
+            pointHoverBorderColor: ['#3C87D5',],
+            pointHitRadius: 10,
+            pointBorderWidth: 2,
         }
     ]  // End datasets
 };  // End data
@@ -23,7 +23,7 @@ const ramUtilData = {
 // Legend Margin plugin block
 const ramUtilLegendMargin = {
     id: 'legendMargin',
-    beforeInit(chart, legend, options){
+    beforeInit(chart, legend, options) {
         const fitValue = chart.legend.fit
         chart.legend.fit = function fit() {
             fitValue.bind(chart.legend)();
@@ -76,9 +76,9 @@ const ramUtilConfig = {
                 max: 100,
 
                 ticks: {
-                        callback: function(value, index, values) {
-                                return value + '%';
-                        }
+                    callback: function (value, index, values) {
+                        return value + '%';
+                    }
                 },
                 title: {
                     display: false,

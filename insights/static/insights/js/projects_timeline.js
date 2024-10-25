@@ -5,14 +5,14 @@ const projectsTimelineData = {
         // Chart Data
         data: projects_timeline_chart_data,
         lineTension: 0.3,
-        backgroundColor: ['#E8791E', ],
-        borderColor: ['#E8791E', ],
+        backgroundColor: ['#E8791E',],
+        borderColor: ['#E8791E',],
         pointRadius: 3,
-        pointBackgroundColor: ['#E8791E', ],
-        pointBorderColor: ['#E8791E', ],
+        pointBackgroundColor: ['#E8791E',],
+        pointBorderColor: ['#E8791E',],
         pointHoverRadius: 3,
-        pointHoverBackgroundColor: ['#E8791E', ],
-        pointHoverBorderColor: ['#E8791E', ],
+        pointHoverBackgroundColor: ['#E8791E',],
+        pointHoverBorderColor: ['#E8791E',],
         pointHitRadius: 10,
         pointBorderWidth: 2,
     }]  // End datasets
@@ -21,7 +21,7 @@ const projectsTimelineData = {
 // Legend Margin plugin block
 const projectsTimelineLegendMargin = {
     id: 'legendMargin',
-    beforeInit(chart, legend, options){
+    beforeInit(chart, legend, options) {
         const fitValue = chart.legend.fit
         chart.legend.fit = function fit() {
             fitValue.bind(chart.legend)();
@@ -50,11 +50,11 @@ const projectsTimelineConfig = {
             tooltip: {
                 callbacks: {
                     title: context => {
-                    const d = new Date(context[0].raw.x);
-                    const formattedDate = d.toLocaleString([], {
-                    year: 'numeric', month: 'short'
-                });
-                return formattedDate
+                        const d = new Date(context[0].raw.x);
+                        const formattedDate = d.toLocaleString([], {
+                            year: 'numeric', month: 'short'
+                        });
+                        return formattedDate
                     }  // End context
                 }  // End callbacks
             }  // End ToolTip

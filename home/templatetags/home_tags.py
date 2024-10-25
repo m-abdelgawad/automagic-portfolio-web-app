@@ -1,6 +1,6 @@
 from django import template
-from ..models import Configuration
 
+from ..models import Configuration
 
 register = template.Library()
 

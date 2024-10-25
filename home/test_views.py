@@ -1,7 +1,7 @@
 import logging
-from django.urls import reverse
-from django.test import TestCase
 
+from django.test import TestCase
+from django.urls import reverse
 
 logging.disable(logging.CRITICAL)
 
