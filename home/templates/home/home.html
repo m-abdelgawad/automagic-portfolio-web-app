@@ -12,9 +12,6 @@
 {% block og_image %}{% site_configs as site_configs %}{% if site_configs.featured_image %}{{ site_configs.featured_image.url }}{% endif %}{% endblock %}
 {% block extra_head %}
 
-    <!-- Lottie Player -->
-    {% include "home/includes/inline_js/lottie_player.html" %}
-
     <!-- Navbar active link -->
     <style>
         #home-navbar {
@@ -25,7 +22,8 @@
 {% endblock %}
 
 {% block extra_body %}
-
+    <!-- Lottie Player -->
+    {% include "home/includes/inline_js/lottie_player.html" %}
 {% endblock %}
 
 

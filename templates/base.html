@@ -42,12 +42,6 @@
         <!-- Custom Block for applications -->
         {% block extra_head %}{% endblock %}
 
-        <!-- Bootstrap core JS-->
-        {% include "includes/inline_js/bootstrap_js.html" %}
-
-        <!-- Font Awesome -->
-        {% include "includes/inline_js/font_awesome_6.4.0.html" %}
-
     </head>
 
     <body class="d-flex flex-column h-100">
@@ -80,6 +74,12 @@
 
         <!-- Add border bottom to the sticky navbar on scroll -->
         {% include "includes/inline_js/custom_js.html" %}
+
+        <!-- Bootstrap core JS-->
+        {% include "includes/inline_js/bootstrap_js.html" %}
+
+        <!-- Font Awesome -->
+        {% include "includes/inline_js/font_awesome_6.4.0.html" %}
 
         <!-- extra block for placing scripts files -->
         {% block extra_body %}{% endblock %}
