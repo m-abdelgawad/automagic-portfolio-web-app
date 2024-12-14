@@ -2,7 +2,8 @@ version: '3.9'
 
 services:
   nginx-certbot:
-    image: nginx:latest
+    build:
+      context: ./nginx
     container_name: nginx-certbot
     ports:
       - "80:80"
@@ -11,13 +12,6 @@ services:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro  # Nginx server config
       - ./nginx/ssl/:/etc/letsencrypt  # Store SSL certificates
       - ./nginx/challenges:/var/www/certbot  # Store challenges
-    entrypoint: >
-      /bin/sh -c "
-      if [ ! -f /etc/letsencrypt/live/automagicdeveloper.com/fullchain.pem ]; then
-        certbot --nginx --non-interactive --agree-tos --email muhammadabdelgawwad@gmail.com -d automagicdeveloper.com -d www.automagicdeveloper.com;
-      fi;
-      nginx -g 'daemon off;'
-      "
     depends_on:
       - app
 
