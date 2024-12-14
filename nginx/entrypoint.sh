@@ -3,6 +3,8 @@
 set -e
 
 CERT_DEST="/etc/nginx/certs"
+DOMAIN="automagicdeveloper.com"
+SUBDOMAIN="www.automagicdeveloper.com"
 
 # Function to obtain certificates
 obtain_certificates() {
@@ -10,23 +12,18 @@ obtain_certificates() {
     # Stop Nginx to free port 80 for Certbot
     echo "Stopping Nginx to free port 80 for Certbot..."
     nginx -s stop || true
-    # Run Certbot standalone
+    # Run Certbot standalone with custom paths
     certbot certonly --standalone --preferred-challenges http \
         --non-interactive --agree-tos --email muhammadabdelgawwad@gmail.com \
-        -d automagicdeveloper.com -d www.automagicdeveloper.com
-    # Copy certificates to CERT_DEST
-    echo "Copying certificates to ${CERT_DEST}..."
-    cp /etc/letsencrypt/live/automagicdeveloper.com/fullchain.pem ${CERT_DEST}/fullchain.pem
-    cp /etc/letsencrypt/live/automagicdeveloper.com/privkey.pem ${CERT_DEST}/privkey.pem
+        --cert-path ${CERT_DEST}/fullchain.pem --key-path ${CERT_DEST}/privkey.pem \
+        -d ${DOMAIN} -d ${SUBDOMAIN}
 }
 
 # Function to renew certificates
 renew_certificates() {
     echo "Checking and renewing SSL certificates if needed..."
-    certbot renew --quiet
-    # Copy renewed certificates to CERT_DEST
-    cp /etc/letsencrypt/live/automagicdeveloper.com/fullchain.pem ${CERT_DEST}/fullchain.pem
-    cp /etc/letsencrypt/live/automagicdeveloper.com/privkey.pem ${CERT_DEST}/privkey.pem
+    certbot renew --quiet \
+        --cert-path ${CERT_DEST}/fullchain.pem --key-path ${CERT_DEST}/privkey.pem
 }
 
 # Check and obtain certificates

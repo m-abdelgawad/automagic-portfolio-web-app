@@ -6,7 +6,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./nginx/certs:/etc/nginx/certs:ro  # Mount certificates as read-only
+      - ./nginx/certs:/etc/nginx/certs:rw  # Mount certificates for Nginx and Certbot
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro  # Nginx configuration
     depends_on:
       - django-app
