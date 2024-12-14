@@ -62,7 +62,6 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
 
-    'cooler_jazzmin.apps.CoolerJazzminConfig',
     'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -128,7 +127,6 @@ TEMPLATES = [
             'django.template.context_processors.request',
             'django.contrib.auth.context_processors.auth',
             'django.contrib.messages.context_processors.messages',
-            'cooler_jazzmin.context_processors.get_admin_data'
         ],
     },
     },
@@ -216,3 +214,19 @@ CLOUDINARY_STORAGE = {
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        '': {  # Root logger
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+    },
+}
