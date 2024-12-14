@@ -8,8 +8,8 @@ obtain_certificates() {
         -d automagicdeveloper.com -d www.automagicdeveloper.com --redirect
 }
 
-# Start Nginx in the background
-echo "Starting Nginx in the background..."
+# Start Nginx in HTTP-only mode
+echo "Starting Nginx in HTTP-only mode..."
 nginx &
 
 # Wait for Nginx to start
@@ -24,9 +24,9 @@ else
 fi
 
 # Reload Nginx to apply SSL configuration
-echo "Reloading Nginx with SSL certificates..."
+echo "Reloading Nginx with SSL configuration..."
 nginx -s reload
 
 # Keep Nginx running in the foreground
-echo "Starting Nginx in foreground..."
+echo "Starting Nginx in foreground with HTTPS..."
 nginx -g "daemon off;"
