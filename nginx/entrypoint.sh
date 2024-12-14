@@ -15,9 +15,6 @@ check_and_obtain_certificates() {
         certbot certonly --standalone --preferred-challenges http \
             --non-interactive --agree-tos --email muhammadabdelgawwad@gmail.com \
             -d automagicdeveloper.com -d www.automagicdeveloper.com
-    else
-        echo "SSL certificates found. Checking for renewal..."
-        certbot renew --quiet
     fi
 }
 
@@ -32,6 +29,10 @@ sync_certificates() {
 # Main entrypoint logic
 check_and_obtain_certificates
 sync_certificates
+
+# Start cron in the background
+echo "Starting cron for certificate renewal..."
+cron
 
 # Start Nginx in the foreground
 echo "Starting Nginx with SSL configuration..."
