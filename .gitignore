@@ -4,6 +4,9 @@
 
 static/
 
+nginx/certs/fullchain.pem 
+nginx/certs/privkey.pem
+
 # User-specific stuff
 .idea/**/workspace.xml
 .idea/**/tasks.xml
