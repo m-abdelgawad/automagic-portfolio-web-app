@@ -23,16 +23,16 @@ services:
 
     # Specify dependencies to ensure Nginx starts after the Django application
     depends_on:
-      - automatic  # Updated dependency to the renamed 'automatic' service
+      - automagic  # Updated dependency to the renamed 'automagic' service
 
-  # Django application service renamed to 'automatic'
-  automatic:
+  # Django application service renamed to 'automagic'
+  automagic:
     # Build the Django application image using the Dockerfile in the current directory
     build:
       context: .
 
     # Assign a new name to the Django application container as per the requirement
-    container_name: automatic
+    container_name: automagic
 
     # Define environment variables for the Django application
     environment:
