@@ -1,44 +1,38 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 
-# Function to check if port 80 is responding
-verify_port_80() {
-    echo "Checking if port 80 is accessible..."
-    for i in $(seq 1 10); do
-        if curl -s http://127.0.0.1/.well-known/acme-challenge/ > /dev/null 2>&1; then
-            echo "Port 80 is accessible."
-            return 0
-        fi
-        echo "Port 80 not accessible yet. Retrying in 2 seconds... ($i/10)"
-        sleep 2
-    done
-    echo "Failed to access port 80. Exiting."
-    exit 1
+# Paths for SSL certificates
+CERT_DIR="/etc/letsencrypt/live/automagicdeveloper.com"
+CERT_DEST="/etc/nginx/certs"
+
+# Check if certificates exist or need renewal
+check_and_obtain_certificates() {
+    if [ ! -f "${CERT_DIR}/fullchain.pem" ] || [ ! -f "${CERT_DIR}/privkey.pem" ]; then
+        echo "Obtaining new SSL certificates..."
+        # Stop Nginx to free port 80 for Certbot
+        nginx -s stop || true
+        certbot certonly --standalone --preferred-challenges http \
+            --non-interactive --agree-tos --email muhammadabdelgawwad@gmail.com \
+            -d automagicdeveloper.com -d www.automagicdeveloper.com
+    else
+        echo "SSL certificates found. Checking for renewal..."
+        certbot renew --quiet
+    fi
 }
 
-# Start Nginx in HTTP-only mode
-echo "Starting Nginx in HTTP-only mode..."
-nginx &
+# Sync certificates to the desired directory
+sync_certificates() {
+    echo "Syncing SSL certificates to ${CERT_DEST}..."
+    mkdir -p ${CERT_DEST}
+    cp -L ${CERT_DIR}/fullchain.pem ${CERT_DEST}/fullchain.pem
+    cp -L ${CERT_DIR}/privkey.pem ${CERT_DEST}/privkey.pem
+}
 
-# Wait for Nginx to start and verify port 80
-sleep 5
-verify_port_80
+# Main entrypoint logic
+check_and_obtain_certificates
+sync_certificates
 
-# Obtain SSL certificates using Certbot
-if [ ! -f /etc/letsencrypt/live/automagicdeveloper.com/fullchain.pem ]; then
-    echo "SSL certificates not found. Obtaining certificates..."
-    certbot certonly --webroot --webroot-path=/var/www/certbot \
-        --non-interactive --agree-tos --email muhammadabdelgawwad@gmail.com \
-        -d automagicdeveloper.com -d www.automagicdeveloper.com
-else
-    echo "SSL certificates already exist."
-fi
-
-# Reload Nginx with SSL configuration
-echo "Reloading Nginx with SSL configuration..."
-nginx -s reload
-
-# Keep Nginx running in the foreground
-echo "Starting Nginx in foreground with HTTPS..."
+# Start Nginx in the foreground
+echo "Starting Nginx with SSL configuration..."
 nginx -g "daemon off;"
