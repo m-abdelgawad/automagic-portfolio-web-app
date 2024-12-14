@@ -3,19 +3,19 @@ services:
     build: ./nginx
     container_name: nginx
     ports:
-      - "80:80"
-      - "443:443"
+      - "80:80"    # Maps host port 80 to container port 80 for HTTP
+      - "443:443"  # Maps host port 443 to container port 443 for HTTPS
     volumes:
-      - ./nginx/certs:/etc/nginx/certs:rw  # Mount certificates for Nginx and Certbot
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro  # Nginx configuration
+      - ./nginx/certs:/etc/nginx/certs:ro           # Mounts SSL certificates as read-only
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro  # Mounts Nginx configuration as read-only
     depends_on:
-      - django-app
+      - automatic  # Ensures Nginx starts after the Django app
 
-  django-app:
+  automatic:
     build:
       context: .
-    container_name: django-app
+    container_name: automatic  # Renamed container from "django-app" to "automatic"
     environment:
       - DJANGO_SETTINGS_MODULE=automagic_developer.settings
     ports:
-      - "8000:8000"
+      - "8000:8000"  # Maps host port 8000 to container port 8000 for Django app

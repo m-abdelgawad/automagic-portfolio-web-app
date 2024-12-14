@@ -1,26 +1,30 @@
+# Use the official Python 3.10 base image
 FROM python:3.10
 
-# Install dependencies
-RUN apt-get update && apt-get install -y netcat-openbsd
+# Install system dependencies
+RUN apt-get update && \
+    apt-get install -y netcat-openbsd && \
+    rm -rf /var/lib/apt/lists/*
 
-# Create app user
+# Create a system user for running the application
 RUN useradd --system --create-home --shell=/bin/bash --uid=1000 appuser
 
+# Set the working directory inside the container
 WORKDIR /website
 
-# Copy only the requirements file first
+# Copy the requirements file into the container
 COPY requirements.txt .
 
 # Install Python dependencies
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of the application code
+# Copy the rest of the application code into the container
 COPY . .
 
-# Change ownership of the work directory
+# Change ownership of the work directory to the app user
 RUN chown -R appuser:appuser /website
 
-# Switch to the non-root user
+# Switch to the non-root user for security
 USER appuser
 
 # Ensure Python outputs logs unbuffered
@@ -29,5 +33,5 @@ ENV PYTHONUNBUFFERED=1
 # Expose the application port
 EXPOSE 8000
 
-# Entrypoint to run commands before starting the app
+# Set the entrypoint to the custom script
 ENTRYPOINT ["bash", "entrypoint.sh"]
