@@ -2,12 +2,6 @@
 
 set -e
 
-# Function to obtain SSL certificates using Certbot with Nginx plugin
-obtain_certificates() {
-    certbot --nginx --non-interactive --agree-tos --email muhammadabdelgawwad@gmail.com \
-        -d automagicdeveloper.com -d www.automagicdeveloper.com --redirect
-}
-
 # Start Nginx in HTTP-only mode
 echo "Starting Nginx in HTTP-only mode..."
 nginx &
@@ -15,18 +9,20 @@ nginx &
 # Wait for Nginx to start
 sleep 5
 
-# Check if SSL certificates exist
+# Obtain SSL certificates using Certbot
 if [ ! -f /etc/letsencrypt/live/automagicdeveloper.com/fullchain.pem ]; then
     echo "SSL certificates not found. Obtaining certificates..."
-    obtain_certificates
+    certbot certonly --webroot --webroot-path=/var/www/certbot \
+        --non-interactive --agree-tos -m muhammadabdelgawwad@gmail.com \
+        -d automagicdeveloper.com
 else
     echo "SSL certificates already exist."
 fi
 
-# Reload Nginx to apply SSL configuration
+# Reload Nginx to enable HTTPS
 echo "Reloading Nginx with SSL configuration..."
 nginx -s reload
 
 # Keep Nginx running in the foreground
-echo "Starting Nginx in foreground with HTTPS..."
+echo "Starting Nginx in foreground..."
 nginx -g "daemon off;"
