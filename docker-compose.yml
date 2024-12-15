@@ -1,9 +1,10 @@
 services:
 
   automagic:
-    build: .
+    #build: .
     container_name: automagic
     image: mabdelgawad94/automagic_developer:latest
+    pull_policy: always
     restart: always
     networks:
       - nginx_network
