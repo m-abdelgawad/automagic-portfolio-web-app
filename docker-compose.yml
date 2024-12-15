@@ -3,28 +3,6 @@
 # Define the services in the Docker Compose setup
 services:
 
-  # Nginx service to handle HTTP and HTTPS traffic
-  nginx:
-    # Build the Nginx image using the Dockerfile located in the ./nginx directory
-    build: ./nginx
-
-    # Assign a name to the Nginx container for easier reference
-    container_name: nginx
-
-    # Define the ports to expose and map from the host to the container
-    ports:
-      - "80:80"    # Map port 80 on the host to port 80 in the container (HTTP)
-      - "443:443"  # Map port 443 on the host to port 443 in the container (HTTPS)
-
-    # Define the volumes to mount inside the container
-    volumes:
-      - ./nginx/certs:/etc/nginx/certs:rw  # Mount the local ./nginx/certs directory to /etc/nginx/certs in the container with read-write permissions
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro  # Mount the Nginx configuration file as read-only
-
-    # Specify dependencies to ensure Nginx starts after the Django application
-    depends_on:
-      - automagic  # Updated dependency to the renamed 'automagic' service
-
   # Django application service renamed to 'automagic'
   automagic:
     # Build the Django application image using the Dockerfile in the current directory
@@ -38,6 +16,9 @@ services:
     environment:
       - DJANGO_SETTINGS_MODULE=automagic_developer.settings  # Specify the Django settings module to use
 
-    # Define the ports to expose and map from the host to the container
-    ports:
-      - "8000:8000"  # Map port 8000 on the host to port 8000 in the container for the Django application
+    networks:
+      - nginx_network
+
+networks:
+  nginx_network:
+    external: true
