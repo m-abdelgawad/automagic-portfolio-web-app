@@ -1,21 +1,10 @@
-# docker-compose.yml
-
-# Define the services in the Docker Compose setup
 services:
 
-  # Django application service renamed to 'automagic'
   automagic:
-    # Build the Django application image using the Dockerfile in the current directory
     build:
       context: .
-
-    # Assign a new name to the Django application container as per the requirement
     container_name: automagic
-
-    # Define environment variables for the Django application
-    environment:
-      - DJANGO_SETTINGS_MODULE=automagic_developer.settings  # Specify the Django settings module to use
-
+    restart: always
     networks:
       - nginx_network
 
