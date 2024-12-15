@@ -1,9 +1,9 @@
 services:
 
   automagic:
-    build:
-      context: .
+    build: .
     container_name: automagic
+    image: mabdelgawad94/automagic_developer:latest
     restart: always
     networks:
       - nginx_network
