@@ -4,6 +4,8 @@ services:
     #build: .
     container_name: automagic
     image: mabdelgawad94/automagic_developer:latest
+    env_file:
+      - .env
     pull_policy: always
     restart: always
     networks:
