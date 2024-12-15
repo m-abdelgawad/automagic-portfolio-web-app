@@ -43,7 +43,7 @@ jobs:
           script: |
             cd ${{ secrets.REMOTE_PATH }}
             git pull
-            # Create fresh .env file
+            rm -rf .env
             echo "IS_PRODUCTION=${{ secrets.IS_PRODUCTION }}" > .env
             echo "DEBUG=${{ secrets.DEBUG }}" >> .env
             echo "CLOUDINARY_CLOUD_NAME=${{ secrets.CLOUDINARY_CLOUD_NAME }}" >> .env
