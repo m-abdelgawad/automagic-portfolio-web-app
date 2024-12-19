@@ -22,7 +22,7 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          username: mabdelgawad94
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       # Step 4: Build and push Docker image
@@ -35,34 +35,22 @@ jobs:
 
       # Step 5: Deploy to server via SSH
       - name: Deploy to Server
-        uses: appleboy/ssh-action@v0.1.3
+        uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.SSH_HOST }}
+          host: 145.223.98.237
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd ${{ secrets.REMOTE_PATH }}
+            cd /home/mohamed/automagic-portfolio-web-app
             git pull
-            rm -rf .env
-            echo "IS_PRODUCTION=${{ secrets.IS_PRODUCTION }}" > .env
-            echo "DEBUG=${{ secrets.DEBUG }}" >> .env
-            echo "CLOUDINARY_CLOUD_NAME=${{ secrets.CLOUDINARY_CLOUD_NAME }}" >> .env
-            echo "CLOUDINARY_API_KEY=${{ secrets.CLOUDINARY_API_KEY }}" >> .env
-            echo "CLOUDINARY_API_SECRET=${{ secrets.CLOUDINARY_API_SECRET }}" >> .env
-            echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .env
-            echo "RECAPTCHA_PUBLIC_KEY=${{ secrets.RECAPTCHA_PUBLIC_KEY }}" >> .env
-            echo "RECAPTCHA_PRIVATE_KEY=${{ secrets.RECAPTCHA_PRIVATE_KEY }}" >> .env
-            echo "EMAIL_HOST=${{ secrets.EMAIL_HOST }}" >> .env
-            echo "EMAIL_HOST_USER=${{ secrets.EMAIL_HOST_USER }}" >> .env
-            echo "EMAIL_HOST_PASSWORD=${{ secrets.EMAIL_HOST_PASSWORD }}" >> .env
-            echo "EMAIL_PORT=${{ secrets.EMAIL_PORT }}" >> .env
-            echo "EMAIL_USE_TLS=${{ secrets.EMAIL_USE_TLS }}" >> .env
-            echo "DB_HOSTNAME=${{ secrets.DB_HOSTNAME }}" >> .env
-            echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
-            echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
-            echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> .env
-            echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
-            echo "PGDATA=${{ secrets.PGDATA }}" >> .env
+            rm -rf .secrets
+            echo "IS_PRODUCTION=${{ vars.IS_PRODUCTION }}" > .secrets
+            echo "DEBUG=${{ vars.DEBUG }}" >> .secrets
+            echo "CLOUDINARY_API_SECRET=${{ secrets.CLOUDINARY_API_SECRET }}" >> .secrets
+            echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .secrets
+            echo "RECAPTCHA_PRIVATE_KEY=${{ secrets.RECAPTCHA_PRIVATE_KEY }}" >> .secrets
+            echo "EMAIL_HOST_PASSWORD=${{ secrets.EMAIL_HOST_PASSWORD }}" >> .secrets
+            echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .secrets
             docker compose down -v --rmi all --remove-orphans
             docker system prune -f
             docker compose up --build -d

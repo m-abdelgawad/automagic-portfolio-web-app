@@ -6,6 +6,7 @@ services:
     image: mabdelgawad94/automagic_developer:latest
     env_file:
       - .env
+      - .secrets
     pull_policy: always
     restart: always
     networks:
